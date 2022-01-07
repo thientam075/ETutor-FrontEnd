@@ -1,11 +1,12 @@
 import "@popperjs/core";
 import { BsSearch } from "react-icons/bs";
+
 export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid d-flex row">
         <div className="col d-flex">
-          <div className="navbar-brand">Navbar</div>
+          {/* <div className="navbar-brand"><img src = "/logoEtutor.png" className="logo"></img></div>
           <button
             className="navbar-toggler"
             type="button"
@@ -16,7 +17,7 @@ export default function Navbar() {
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon" />
-          </button>
+          </button> */}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -41,7 +42,7 @@ export default function Navbar() {
             <input
               className="form-control me-2"
               type="search"
-              placeholder="Search"
+              placeholder="Tìm kiếm gia sư"
               aria-label="Search"
             />
             <button className="btn btn-outline-success" type="submit">

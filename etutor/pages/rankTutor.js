@@ -1,5 +1,9 @@
+import Navbar from "../components/navbar";
+import ListGroup from '../components/listgroup';
+const listRank = [];
 export default function searchTutor(){
-    return(<div>
-        Đây là trang xếp hạng gia sư
-    </div>)
+    return(<>
+        <Navbar />
+        <ListGroup typeList = {"rankTutor"} listData={listRank}/>
+      </>);
 }
