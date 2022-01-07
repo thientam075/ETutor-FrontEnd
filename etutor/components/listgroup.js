@@ -14,9 +14,8 @@ export default function ListGroup({ typeList, listData }) {
         {listData.length !== 0
           ? listData.map((data, index) => {
               return (
-                <li className="list-group-item">
+                <li className="list-group-item" key={index}>
                   <ShortInfo
-                    key={index}
                     index={index + 1}
                     name={data.name}
                     avatar={data.avatar}
