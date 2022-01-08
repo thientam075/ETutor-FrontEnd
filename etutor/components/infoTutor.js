@@ -6,6 +6,8 @@ export default function InfoTutor({
   subjects,
   Times,
   email,
+  handleShowReportDialog,
+  handleShowRateDialog
 }) {
   const marginInfo = {
     marginLeft: "12.813rem",
@@ -32,7 +34,10 @@ export default function InfoTutor({
           <button type="button" className="btn btn-primary m-1">
             Nhắn tin
           </button>
-          <button type="button" className="btn btn-danger m-1">
+          <button type="button" className="btn btn-warning m-1" onClick={handleShowRateDialog}>
+            Đánh giá
+          </button>
+          <button type="button" className="btn btn-danger m-1" onClick={handleShowReportDialog}>
             Báo cáo
           </button>
         </div>

@@ -1,5 +1,10 @@
+import { useState } from "react";
+
 import InfoTutor from "../components/infoTutor";
 import Navbar from "../components/navbar";
+import RateTutorDialog from "../components/rateTutorDialog";
+import ReportTutorDialog from "../components/reportTutorDialog";
+
 const infoTutor1 = {
   name: "Ryan Bùi",
   star: 4,
@@ -16,6 +21,25 @@ const infoTutor1 = {
   ],
 };
 export default function InfoDetailTutor() {
+  const [showReportDialog, setShowReportDialog] = useState(false);
+  const [showRateDialog, setShowRateDialog] = useState(false);
+
+  const handleShowReportDialog = () => {
+    setShowReportDialog(true);
+  }
+
+  const handleCloseReportDialog = () => {
+    setShowReportDialog(false);
+  }
+
+  const handleShowRateDialog = () => {
+    setShowRateDialog(true);
+  }
+
+  const handleCloseRateDialog = () => {
+    setShowRateDialog(false);
+  }
+
   return (
     <>
       <Navbar />
@@ -27,7 +51,13 @@ export default function InfoDetailTutor() {
         description = {infoTutor1.description}
         email = {infoTutor1.email}
         Times = {infoTutor1.Times}
+        handleShowReportDialog={handleShowReportDialog}
+        handleShowRateDialog={handleShowRateDialog}
       />
+      
+      <ReportTutorDialog show={showReportDialog} handleClose={handleCloseReportDialog}></ReportTutorDialog>
+      <RateTutorDialog show={showRateDialog} handleClose={handleCloseRateDialog}></RateTutorDialog>
+
     </>
   );
 }
