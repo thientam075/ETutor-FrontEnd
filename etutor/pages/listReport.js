@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const ThCenter = (props) => <th {...props} class="text-center bg-light" />
-const TdCenter = (props) => <td {...props} class="text-center" />
+const ThCenter = (props) => <th {...props} className="text-center bg-light" />
+const TdCenter = (props) => <td {...props} className="text-center" />
 
 const ListReport = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -53,19 +53,19 @@ const ListReport = () => {
   return (
     <>
       <Navbar />
-      <div class="d-flex flex-column align-items-center pt-4">
-        <h4 class="text-center">Bảng danh sách các report gia sư từ học viên</h4>
-        <div style={styles.separated} class="mx-auto bg-dark mt-4"/>
-        <div class="d-flex justify-content-between w-50 mt-4">
-          <div class="d-flex align-items-center me-2" style={styles.text1line}>
-            <div class="me-2">Từ ngày :</div>
+      <div className="d-flex flex-column align-items-center pt-4">
+        <h4 className="text-center">Bảng danh sách các report gia sư từ học viên</h4>
+        <div style={styles.separated} className="mx-auto bg-dark mt-4"/>
+        <div className="d-flex justify-content-between w-50 mt-4">
+          <div className="d-flex align-items-center me-2" style={styles.text1line}>
+            <div className="me-2">Từ ngày :</div>
             <DatePicker
               selected={startDate}
               onChange={setStartDate}
             />
           </div>
-          <div class="d-flex align-items-center" style={styles.text1line}>
-            <div class="me-2">Đến ngày :</div>
+          <div className="d-flex align-items-center" style={styles.text1line}>
+            <div className="me-2">Đến ngày :</div>
             <DatePicker
               selected={endDate}
               onChange={setEndDate}
@@ -73,7 +73,7 @@ const ListReport = () => {
           </div>
         </div>
         <div style={styles.wrapTable}>
-          <table class="table table-bordered">
+          <table className="table table-bordered">
             <thead>
               <tr>
                 {fields.map((field, i) => (
@@ -93,13 +93,13 @@ const ListReport = () => {
             </tbody>
           </table>
         </div>
-        <nav class="d-flex justify-content-center">
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <nav className="d-flex justify-content-center">
+          <ul className="pagination">
+            <li className="page-item"><a className="page-link" href="#">Previous</a></li>
+            <li className="page-item"><a className="page-link" href="#">1</a></li>
+            <li className="page-item"><a className="page-link" href="#">2</a></li>
+            <li className="page-item"><a className="page-link" href="#">3</a></li>
+            <li className="page-item"><a className="page-link" href="#">Next</a></li>
           </ul>
         </nav>
       </div>
