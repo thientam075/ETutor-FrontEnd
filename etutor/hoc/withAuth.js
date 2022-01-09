@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useAppSelector } from '../context';
 import Loader from "react-loader-spinner";
+import { AppContext } from '../context';
+import { Actions } from '../context/action';
 
 const Loading = () => (
   <div style={{ display: 'flex', height: '80vh', justifyContent: 'center', alignItems: 'center' }}>
@@ -17,12 +19,21 @@ const Loading = () => (
 
 const withAuth = (Component) => {
   return (props) => {
-    if (typeof window !== 'undefined') {
-      const router = useRouter();
-      const auth = useAppSelector((state) => state.auth);
+    const router = useRouter();
+    const { setAction } = useContext(AppContext);
 
-      if (!auth.jwt) {
+    useEffect(() => {
+      const authData = localStorage.getItem('auth');
+      if (authData) {
+        setAction(Actions.UPDATE_AUTH, JSON.parse(authData));
+      } else {
         router.replace('/login');
+      }
+    }, []);
+
+    if (typeof window !== 'undefined') {
+      const auth = useAppSelector((state) => state.auth);
+      if (!auth.jwt) {
         return <Loading />;
       }
       return <Component {...props}/>

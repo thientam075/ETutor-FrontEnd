@@ -4,15 +4,13 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 import { IoMailSharp } from "react-icons/io5";
 import { API } from '../configs';
 import ImageRegister from "../public/images/signup_signin/signup.png";
-// const response = await fetch(API.USER.MANAGE_ACCESS(account.id), {
-//   method: 'PUT',
-//   headers: { 'Content-Type': 'application/json' },
-//   body: JSON.stringify({
-//     data: {
-//       IsBan: !account.attributes.IsBan,
-//     }
-//   })
-// });
+import { useContext, useState } from "react";
+import { AppContext } from "../context";
+import { Actions } from "../context/action";
+import { ToastHelper } from '../utils/Toast';
+import { useRouter } from "next/router";
+import Loader from "react-loader-spinner";
+
 export default function Register() {
   const {
     handleSubmit,
@@ -20,34 +18,54 @@ export default function Register() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log("data", data);
     fetchData(data);
   };
+
+  const router = useRouter();
+  const { setAction } = useContext(AppContext);
+  const [isLoading, setIsLoading] = useState(false);
+
   const fetchData = async ({ fullname, email, password, role }) => {
-    await fetch(API.USER.REGISTER, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        data: {
+    setIsLoading(true);
+    try {
+      const response = await fetch(API.AUTH.REGISTER, {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: email,
+          email: email,
+          password: password,
           Fullname: fullname,
-          Email: email,
-          Password: password,
           TypeAccount: role,
-          IsBan: 0,
-        },
-      }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        console.log("Thanh cong: ", result);
-      })
-      .catch((err) => console.error(err));
+          Blocked: false,
+          IsBan: false,
+        })
+      });
+      const result = await response.json();
+      if (response.status === 200) {
+        setAction(Actions.UPDATE_AUTH, result);
+        router.replace('/');
+      } else {
+        ToastHelper.error(result.error.message);
+      }
+    } catch (e) {}
+    setIsLoading(false);
   };
+
   return (
     <>
       <section className="vh-100" style={{ backgroundColor: "#eee" }}>
         <div className="container h-100">
-          <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="d-flex flex-column justify-content-center align-items-center h-100 pt-4">
+            {isLoading && (
+              <Loader
+                type="ThreeDots"
+                color="#00BFFF"
+                height={75}
+                width={75}
+                timeout={0}
+              />
+            )}
             <div className="col-lg-12 col-xl-11">
               <div className="card text-black" style={{ borderRadius: "25px" }}>
                 <div className="card-body p-md-5">

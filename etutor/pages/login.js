@@ -11,30 +11,37 @@ import { API } from "../configs";
 import { AppContext } from '../context';
 import { Actions } from '../context/action';
 import { useRouter } from 'next/router';
+import { ToastHelper } from '../utils/Toast';
+import Loader from "react-loader-spinner";
 
 export default function login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const { setAction } = useContext(AppContext);
   const router = useRouter();
 
   const onLogin = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(API.AUTH.LOGIN, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            identifier: email,
-            password: password,
+          identifier: email,
+          password: password,
         })
       });
+      const result = await response.json();
       if (response.status === 200) {
-        const result = await response.json();
         setAction(Actions.UPDATE_AUTH, result);
-        router.replace('/');
+        router.replace('/listAccount');
+      } else {
+        ToastHelper.error(result.error.message);
       }
     } catch (e) {}
+    setIsLoading(false);
   }
 
   return (
@@ -42,7 +49,16 @@ export default function login() {
       <div className="main">
         <section className="vh-100" style={{ backgroundColor: "#eee" }}>
           <div className="container h-100">
-            <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="d-flex flex-column justify-content-center align-items-center h-100">
+              {isLoading && (
+                <Loader
+                  type="ThreeDots"
+                  color="#00BFFF"
+                  height={75}
+                  width={75}
+                  timeout={0}
+                />
+              )}
               <div className="col-lg-12 col-xl-11">
                 <div
                   className="card text-black"
