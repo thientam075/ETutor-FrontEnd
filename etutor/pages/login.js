@@ -35,8 +35,12 @@ export default function login() {
       });
       const result = await response.json();
       if (response.status === 200) {
+        if (result.user.IsBan) {
+          ToastHelper.error('Tài khoản đã bị khóa');
+          return;
+        }
         setAction(Actions.UPDATE_AUTH, result);
-        router.replace('/listAccount');
+        router.replace('/');
       } else {
         ToastHelper.error(result.error.message);
       }
