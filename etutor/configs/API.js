@@ -11,6 +11,7 @@ export const API = {
   },
   REPORT: {
     LIST: API_ROOT + '/bao-caos/?',
+    ADD: API_ROOT + '/bao-caos',
   },
   RATE: {
     ADD: API_ROOT + '/danh-gias',

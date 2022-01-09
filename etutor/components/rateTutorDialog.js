@@ -21,10 +21,20 @@ export default function RateTutorDialog({show, handleClose }) {
     setShowToast(false);
   }
 
+  const handleBeforeClose = () => {
+    setStar(1);
+    setComment("");
+    setError(false);
+  }
+
+
   return (
     <>
     <MyToast content={contentToast} show={showToast} handleClose={handleCloseToast}></MyToast>
-    <Modal show={show} onHide={handleClose} centered>
+    <Modal show={show} onHide={() => {
+      handleBeforeClose();
+      handleClose();
+    }} centered>
       <Modal.Header closeButton>
         <Modal.Title>Đánh giá gia sư</Modal.Title>
       </Modal.Header>
@@ -48,7 +58,10 @@ export default function RateTutorDialog({show, handleClose }) {
         }}/>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={() => {
+          handleBeforeClose();
+          handleClose();
+        }}>
           Đóng
         </Button>
         <Button variant="primary" onClick={async () => {
@@ -59,15 +72,13 @@ export default function RateTutorDialog({show, handleClose }) {
             const res = await DanhGiaService.rateTeacher(1, 1, parseInt(star), comment);
             
             if(res && res.ok){
+              handleBeforeClose();
               handleClose();
-              setStar(1);
-              setComment("");
               handleShowToast("Đánh giá thành công");
             }
             else {
+              handleBeforeClose();
               handleClose();
-              setStar(1);
-              setComment("");
               handleShowToast("Đã xảy ra lỗi");
             }
           }
