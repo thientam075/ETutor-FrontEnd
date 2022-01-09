@@ -25,5 +25,6 @@ export const API = {
       API_ROOT + `/tin-quang-bas/searchTutor?name=${name}`,
     FULLINFO: (id) =>
     API_ROOT + `/tin-quang-bas/fullInfo/${id}`,
+    CREATE: API_ROOT + `/tin-quang-bas`,
   },
 };
