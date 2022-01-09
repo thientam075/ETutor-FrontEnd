@@ -69,7 +69,7 @@ export default function login() {
                           <div className="d-flex flex-row align-items-center mb-4">
                             <IoMailSharp
                               size={28}
-                              style={{ marginRight: 10 }}
+                              style={{ marginRight: "10px" }}
                             />
                             <div className="form-outline flex-fill mb-0">
                               <input
@@ -87,7 +87,7 @@ export default function login() {
                           <div className="d-flex flex-row align-items-center mb-4">
                             <BsFillLockFill
                               size={28}
-                              style={{ marginRight: 10 }}
+                              style={{ marginRight: "10px" }}
                             />
                             <div className="form-outline flex-fill mb-0">
                               <input

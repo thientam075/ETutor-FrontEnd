@@ -31,7 +31,7 @@ export default function register() {
                           <div className="d-flex flex-row align-items-center mb-4">
                             <BsFillPersonFill
                               size={28}
-                              style={{ marginRight: 10 }}
+                              style={{ marginRight: "10px" }}
                             />
                             <div className="form-outline flex-fill mb-0">
                               <input
@@ -47,7 +47,7 @@ export default function register() {
                           <div className="d-flex flex-row align-items-center mb-4">
                             <IoMailSharp
                               size={28}
-                              style={{ marginRight: 10 }}
+                              style={{ marginRight: "10px" }}
                             />
                             <div className="form-outline flex-fill mb-0">
                               <input
@@ -63,7 +63,7 @@ export default function register() {
                           <div className="d-flex flex-row align-items-center mb-4">
                             <BsFillLockFill
                               size={28}
-                              style={{ marginRight: 10 }}
+                              style={{ marginRight: "10px" }}
                             />
                             <div className="form-outline flex-fill mb-0">
                               <input
@@ -77,7 +77,7 @@ export default function register() {
                           </div>
 
                           <div className="d-flex flex-row align-items-center mb-4">
-                            <BsKeyFill size={28} style={{ marginRight: 10 }} />
+                            <BsKeyFill size={28} style={{ marginRight: "10px" }} />
                             <div className="form-outline flex-fill mb-0">
                               <input
                                 type="password"
@@ -92,7 +92,7 @@ export default function register() {
                           <div className="d-flex flex-row align-items-center mb-4">
                             
                             <div className="input-group mb-3 flex-fill mb-0">
-                            <FaChalkboardTeacher size={28} style={{ marginRight: 10, marginTop: 'auto', marginBottom: 'auto' }} />
+                            <FaChalkboardTeacher size={28} style={{ marginRight: "10px", marginTop: 'auto', marginBottom: 'auto' }} />
                               <select
                                 className="form-select"//custom-select
                                 id="inputGroupSelect01"
