@@ -16,36 +16,57 @@ const ListReport = () => {
   const router = useRouter();
 
   const [reports, setReports] = useState([]);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const [page, setPage] = useState(router.query.page || 1);
   const [pageCount, setPageCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getListReport = async (page) => {
+  const [startDate, setStartDate] = useState(() => {
+    const date = new Date();
+    date.setDate(date.getDate() - 7);
+    return date;
+  });
+  const [endDate, setEndDate] = useState(new Date());
+
+  const getListReport = async (page, startDate, endDate) => {
     setIsLoading(true);
-    const query = qs.stringify({
-      pagination: {
-        page,
-        pageSize: 1,
-      },
-      populate: '*',
-    }, {
-      encodeValuesOnly: true,
-    })
-    const response = await fetch(API.REPORT.LIST + query);
-    if (response.status === 200) {
-      const result = await response.json();
-      console.log(result);
-      setPageCount(result.meta.pagination.pageCount);
-      setReports(result.data);
-    }
+    try {
+      const query = qs.stringify({
+        sort: ['id:desc'],
+        filters: {
+          $and: [
+            {
+              createdAt: {
+                $gte: moment(startDate).format('YYYY-MM-DD'),
+              },
+            },
+            {
+              createdAt: {
+                $lte: moment(endDate).add(1, 'days').format('YYYY-MM-DD'),
+              }
+            }
+          ]
+        },
+        pagination: {
+          page,
+          pageSize: 5,
+        },
+        populate: '*',
+      }, {
+        encodeValuesOnly: true,
+      })
+      const response = await fetch(API.REPORT.LIST + query);
+      if (response.status === 200) {
+        const result = await response.json();
+        setPageCount(result.meta.pagination.pageCount);
+        setReports(result.data);
+      }
+    } catch (e) {}
     setIsLoading(false);
   }
 
   useEffect(() => {
-    getListReport(page);
-  }, [page]);
+    getListReport(page, startDate, endDate);
+  }, [page, startDate, endDate]);
 
   useEffect(() => {
     if (router.query.page) {
@@ -77,6 +98,7 @@ const ListReport = () => {
             <DatePicker
               selected={startDate}
               onChange={setStartDate}
+              dateFormat="dd/MM/yyyy"
             />
           </div>
           <div className="d-flex align-items-center" style={styles.text1line}>
@@ -84,6 +106,7 @@ const ListReport = () => {
             <DatePicker
               selected={endDate}
               onChange={setEndDate}
+              dateFormat="dd/MM/yyyy"
             />
           </div>
         </div>
