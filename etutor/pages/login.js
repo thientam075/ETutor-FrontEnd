@@ -12,7 +12,7 @@ import { AppContext } from '../context';
 import { Actions } from '../context/action';
 import { useRouter } from 'next/router';
 
-export default function login() {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
