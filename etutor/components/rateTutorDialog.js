@@ -29,6 +29,7 @@ export default function RateTutorDialog({show, handleClose }) {
         <Modal.Title>Đánh giá gia sư</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {error ? <p style={{color: "red"}}>Vui lòng nhập số sao và bình luận.</p> : <></>}
         <Form.Label htmlFor="star">Chọn số sao bạn muốn đánh giá: </Form.Label>
         <Form.Select id="star" type="text" placeholder="Số sao" as="select" value={star} onChange={ (event) => {
             setStar(event.target.value);
