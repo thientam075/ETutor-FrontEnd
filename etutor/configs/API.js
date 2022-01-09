@@ -1,6 +1,9 @@
 const API_ROOT = 'http://localhost:1337/api';
 
 export const API = {
+  AUTH: {
+    LOGIN: API_ROOT + '/auth/local',
+  },
   USER: {
     REGISTER: API_ROOT+ '/nguoi-dungs/?',
     LIST: API_ROOT + '/nguoi-dungs/?',
