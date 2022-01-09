@@ -1,73 +1,41 @@
 import Navbar from "../components/navbar";
-import ListGroup from '../components/listgroup';
-
-const listSearches = [
-  {
-    name: "Nguyễn Hoàng Trung",
-    avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    star: 4.5,
-    total_rating: 70,
-  },
-  {
-    name: "Nguyễn Văn B",
-    avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    star: 4.3,
-    total_rating: 130,
-  },
-  {
-    name: "Trần Thị H",
-    avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    star: 3.5,
-    total_rating: 60,
-  },
-  {
-    name: "Nguyễn Hoàng Văn",
-    avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    star: 5,
-    total_rating: 2,
-  },
-  {
-    name: "Lê Thị Huyền",
-    avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    star: 4.1,
-    total_rating: 140,
-  },
-  {
-    name: "Nguyễn Minh Nhựt",
-    avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    star: 4.6,
-    total_rating: 138,
-  },
-  {
-    name: "Đặng Minh Hoàng",
-    avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    star: 4.9,
-    total_rating: 141,
-  },
-  {
-    name: "Hoàng Văn Y",
-    avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    star: 3.7,
-    total_rating: 72,
-  },
-  {
-    name: "Nguyễn Thị Huyền Linh",
-    avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    star: 4,
-    total_rating: 73,
-  },
-  {
-    name: "Trần Đại Công",
-    avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    star: 4.2,
-    total_rating: 123,
-  },
-];
-export default function searchTutor() {
+import ListGroup from "../components/listgroup";
+import { API } from "../configs";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+export default function SearchTutor() {
+  const router = useRouter();
+  const { name } = router.query;
+  const [listSearches, setListSearches] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const fechtSearchTutor = async (name) => {
+    console.log(API.TinQuangBa.SEARCH_TUTOR(name));
+    await fetch(API.TinQuangBa.SEARCH_TUTOR(name), {
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => {
+      if (!res.ok) {
+        setError(true);
+      } else {
+        res.json().then((result) => {
+          if (result.rowCount !== 0) {
+            setListSearches(result.rows);
+            setLoading(true);
+          }
+        });
+      }
+    });
+  };
+  useEffect(() => {
+    console.log(router.query);
+    if (name) {
+      fechtSearchTutor(name);
+    }
+  }, [name, loading]);
   return (
     <>
       <Navbar />
-      <ListGroup typeList = {"Search"} listData = {listSearches}/>
+      <ListGroup typeList={"Search"} listData={listSearches} loading={loading} name = {name}/>
     </>
   );
 }
