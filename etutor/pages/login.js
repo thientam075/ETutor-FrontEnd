@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import { ToastHelper } from '../utils/Toast';
 import Loader from "react-loader-spinner";
 
-export default function login() {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);

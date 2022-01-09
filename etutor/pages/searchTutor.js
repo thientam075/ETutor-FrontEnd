@@ -9,8 +9,8 @@ export default function SearchTutor() {
   const [listSearches, setListSearches] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
   const fechtSearchTutor = async (name) => {
-    console.log(API.TinQuangBa.SEARCH_TUTOR(name));
     await fetch(API.TinQuangBa.SEARCH_TUTOR(name), {
       headers: { "Content-Type": "application/json" },
     }).then((res) => {
@@ -35,7 +35,7 @@ export default function SearchTutor() {
   return (
     <>
       <Navbar />
-      <ListGroup typeList={"Search"} listData={listSearches} loading={loading} name = {name}/>
+      <ListGroup typeList={"Search"} listData={listSearches} loading={loading}/>
     </>
   );
 }

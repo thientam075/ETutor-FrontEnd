@@ -17,7 +17,7 @@ export const API = {
     ADD: API_ROOT + "/danh-gias",
   },
   TinQuangBa: {
-    LIST: API_ROOT + "/tin-quang-bas",
+    LIST: API_ROOT + "/tin-quang-bas/findAllInfo",
     MANAGE_ACCESS: (id) => API_ROOT + `/tin-quang-bas/${id}`,
     RANKTUTOR: API_ROOT + `/tin-quang-bas/rankTutor`,
     SEARCH_TUTOR: (name) =>
