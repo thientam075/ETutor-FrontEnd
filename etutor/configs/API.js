@@ -5,6 +5,7 @@ export const API = {
     LOGIN: API_ROOT + '/auth/local',
   },
   USER: {
+    REGISTER: API_ROOT+ '/nguoi-dungs/?',
     LIST: API_ROOT + '/nguoi-dungs/?',
     MANAGE_ACCESS: (id) => API_ROOT + `/nguoi-dungs/${id}`,
   },
