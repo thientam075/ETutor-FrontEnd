@@ -1,3 +1,5 @@
+
+import {useEffect} from 'react';
 export default function InfoTutor({
   name,
   description,
@@ -9,9 +11,15 @@ export default function InfoTutor({
   handleShowReportDialog,
   handleShowRateDialog
 }) {
+
   const marginInfo = {
     marginLeft: "12.813rem",
   };
+  useEffect(() => {
+    if(subjects){
+      subjects = subjects.split(" ");
+    }
+  })
   return (
     <>
       <div className="d-flex justify-content-around m-3">
@@ -51,17 +59,18 @@ export default function InfoTutor({
       <div style={marginInfo} className="mt-2">
         <div>
           <h6>Môn học</h6>
-          <ul>
+          {/* <ul>
             {subjects.length !== 0
               ? subjects.map((subject, index) => {
                   return <li key={index}>{subject}</li>;
                 })
               : "Hiện tại chưa có mô tả về môn học nào"}
-          </ul>
+          </ul> */}
+          {subjects ? <p>{subjects}</p> : <p>Hiện tại chưa có môn học nào</p>}
         </div>
       </div>
       <div style={marginInfo} className="mt-2 row">
-        {Times.length !== 0
+        {/* {Times.length !== 0
           ? Times.map((Time, index) => {
               return (
                 <div className="card col-3" style={{ width: "18rem", marginRight: "10px" }} key={index}>
@@ -73,7 +82,8 @@ export default function InfoTutor({
                 </div>
               );
             })
-          : "Hiện tại không có lịch học"}
+          : "Hiện tại không có lịch học"} */}
+          {Times ? Times : "Hiện tại gia sư chưa cung cấp thời gian học"}
       </div>
       <div style={marginInfo} className="mt-2">
         <div>
