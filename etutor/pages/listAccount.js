@@ -1,23 +1,20 @@
 import Navbar from "../components/navbar";
-import { BsSearch } from "react-icons/bs";
 import React, { useEffect, useState } from 'react';
 import { API } from '../configs';
 import qs from 'qs';
-import { useRouter } from 'next/router';
+import withAdminAuth from "../hoc/withAdminAuth";
 import Loader from "react-loader-spinner";
-import Pagination from "../components/pagination";
 import { Button, Modal } from 'react-bootstrap';
+import { ToastHelper } from '../utils/Toast';
+import { useAppSelector } from '../context';
  
 const ThCenter = (props) => <th {...props} className="text-center bg-light" />
 const TdCenter = (props) => <td {...props} className="text-center" />
 
 const ListAccount = () => {
-  const router = useRouter();
+  const { jwt, user } = useAppSelector((state) => state.auth);
 
   const [accounts, setAccounts] = useState([]);
-  const [page, setPage] = useState(router.query.page || 1);
-  const [pageCount, setPageCount] = useState(0);
-  const [textSearch, setTextSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const [stateModal, setStateModal] = useState({
@@ -27,47 +24,37 @@ const ListAccount = () => {
     account: null,
   });
 
-  const getListAccount = async (page, textSearch = '') => {
+  const getListAccount = async () => {
+    if (!jwt) {
+      return;
+    }
     setIsLoading(true);
     try {
       const query = qs.stringify({
         sort: ['id:desc'],
-        filters: {
-          Fullname: {
-            $containsi: textSearch,
-          }
-        },  
-        pagination: {
-          page,
-          pageSize: 5,
-        },
       }, {
         encodeValuesOnly: true,
       })
-      const response = await fetch(API.USER.LIST + query);
+      const response = await fetch(API.USER.LIST + query, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        }
+      });
+      const result = await response.json();
       if (response.status === 200) {
-        const result = await response.json();
-        setPageCount(result.meta.pagination.pageCount);
-        setAccounts(result.data);
+        setAccounts(result.filter((a) => a.id !== user.id));
+      } else {
+        ToastHelper.error(result.error.message);
       }
     } catch (e) {}
     setIsLoading(false);
   };
 
   useEffect(() => {
-    getListAccount(page);
-  }, [page])
-
-  useEffect(() => {
-    if (router.query.page) {
-      setPage(parseInt(router.query.page));
-    }
-  }, [router.query.page]);
-
-  const onChangePage = (page) => {
-    setPage(page);
-    router.push(`/listAccount?page=${page}`, undefined, { shallow: true });
-  }
+    getListAccount();
+  }, [jwt])
 
   const onBanOrUnban = () => {
     setStateModal(async (state) => {
@@ -81,27 +68,29 @@ const ListAccount = () => {
       try {
         const response = await fetch(API.USER.MANAGE_ACCESS(account.id), {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Authorization': `Bearer ${jwt}`,
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({
-            data: {
-              IsBan: !account.attributes.IsBan,
-            }
+            IsBan: !account.IsBan,
           })
         });
+        const result = await response.json();
         if (response.status === 200) {
-          const json = await response.json();
-          const updatedAccount = json.data;
           setAccounts((accounts) => {
-            const index = accounts.findIndex((a) => a.id === updatedAccount.id);
+            const index = accounts.findIndex((a) => a.id === result.id);
             if (index === -1) {
               return accounts;
             }
             return [
               ...accounts.slice(0, index),
-              updatedAccount,
+              result,
               ...accounts.slice(index + 1,)
             ];
           })
+        } else {
+          ToastHelper.error(result.error.message);
         }
       } catch (e) {}
       setIsLoading(false);
@@ -112,21 +101,13 @@ const ListAccount = () => {
     })
   }
 
-  const onChangeText = (e) => {
-    setTextSearch(e.target.value);
-  }
-
-  const onSearch = () => {
-    getListAccount(1, textSearch);
-  }
-
   const onShowModal = (account) => () => {
-    if (account.attributes.IsBan) {
+    if (account.IsBan) {
       setStateModal((state) => ({
         ...state,
         visible: true,
         title: 'Mở khóa tài khoản',
-        message: 'Bạn có chắc chắn muốn mở khóa tài khoản ' + account.attributes.Fullname,
+        message: 'Bạn có chắc chắn muốn mở khóa tài khoản ' + account.Fullname,
         account: account,
       }))
     } else {
@@ -134,7 +115,7 @@ const ListAccount = () => {
         ...state,
         visible: true,
         title: 'Khóa tài khoản',
-        message: 'Bạn có chắc chắn muốn khóa tài khoản ' + account.attributes.Fullname,
+        message: 'Bạn có chắc chắn muốn khóa tài khoản ' + account.Fullname,
         account: account,
       }))
     }
@@ -151,7 +132,6 @@ const ListAccount = () => {
     'UserId',
     'Tên gia sư',
     'Email',
-    'Số điện thoại',
     '',
   ];
 
@@ -161,19 +141,6 @@ const ListAccount = () => {
       <div className="d-flex flex-column align-items-center pt-4">
         <h4 className="text-center">Bảng danh sách các tài khoản người dùng</h4>
         <div style={styles.separated} className="mx-auto bg-dark mt-4"/>
-        <div className="d-flex mt-4">
-          <input
-            className="form-control me-2"
-            type="search"
-            placeholder="Tìm kiếm..."
-            aria-label="Search"
-            value={textSearch}
-            onChange={onChangeText}
-          />
-          <button onClick={onSearch} className="btn btn-primary">
-            <BsSearch/>
-          </button>
-        </div>
         {isLoading && (
           <Loader
             type="ThreeDots"
@@ -197,11 +164,10 @@ const ListAccount = () => {
                 {accounts.map((account, i) => (
                   <tr key={`row_${i}`}>
                     <TdCenter>{account.id}</TdCenter>
-                    <TdCenter>{account.attributes.Fullname}</TdCenter>
-                    <TdCenter>{account.attributes.Email}</TdCenter>
-                    <TdCenter>{account.phone}</TdCenter>
+                    <TdCenter>{account.Fullname}</TdCenter>
+                    <TdCenter>{account.email}</TdCenter>
                     <TdCenter>
-                      {account.attributes.IsBan ? (
+                      {account.IsBan ? (
                         <button onClick={onShowModal(account)} type="button" className="btn btn-success w-75">Mở khóa</button>
                       ) : (
                         <button onClick={onShowModal(account)} type="button" className="btn btn-danger w-75">Khóa</button>
@@ -213,11 +179,6 @@ const ListAccount = () => {
             </table>
           </div>
         )}
-        <Pagination
-          page={page}
-          pageCount={pageCount}
-          onChangePage={onChangePage}
-        />
         <Modal show={stateModal.visible} onHide={onHideModal} centered>
           <Modal.Header closeButton>
             <Modal.Title>{stateModal.title}</Modal.Title>
@@ -239,7 +200,7 @@ const ListAccount = () => {
   )
 }
 
-export default ListAccount; 
+export default  withAdminAuth(ListAccount); 
 
 const styles = {
   wrapTable: {

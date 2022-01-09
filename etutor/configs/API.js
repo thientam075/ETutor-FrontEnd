@@ -3,11 +3,11 @@ const API_ROOT = "http://localhost:1337/api";
 export const API = {
   AUTH: {
     LOGIN: API_ROOT + "/auth/local",
+    REGISTER: API_ROOT + '/auth/local/register',
   },
   USER: {
-    REGISTER: API_ROOT + "/nguoi-dungs/?",
-    LIST: API_ROOT + "/nguoi-dungs/?",
-    MANAGE_ACCESS: (id) => API_ROOT + `/nguoi-dungs/${id}`,
+    LIST: API_ROOT + "/users/?",
+    MANAGE_ACCESS: (id) => API_ROOT + `/users/${id}`,
   },
   REPORT: {
     LIST: API_ROOT + "/bao-caos/?",
@@ -17,7 +17,7 @@ export const API = {
     ADD: API_ROOT + "/danh-gias",
   },
   TinQuangBa: {
-    LIST: API_ROOT + "/tin-quang-bas",
+    LIST: API_ROOT + "/tin-quang-bas/findAllInfo",
     MANAGE_ACCESS: (id) => API_ROOT + `/tin-quang-bas/${id}`,
     RANKTUTOR: API_ROOT + `/tin-quang-bas/rankTutor`,
     SEARCH_TUTOR: (name) =>

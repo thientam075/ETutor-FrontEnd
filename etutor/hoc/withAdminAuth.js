@@ -17,7 +17,7 @@ const Loading = () => (
   </div>
 );
 
-const withAuth = (Component) => {
+const withAdminAuth = (Component) => {
   return (props) => {
     const router = useRouter();
     const { setAction } = useContext(AppContext);
@@ -26,10 +26,14 @@ const withAuth = (Component) => {
     useEffect(() => {
       const authData = localStorage.getItem('auth');
       if (authData) {
-        setAction(Actions.UPDATE_AUTH, JSON.parse(authData));
-      } else {
-        router.replace('/login');
+        const parsedData = JSON.parse(authData);
+        if (parsedData.user.TypeAccount === 0) {
+          setAction(Actions.UPDATE_AUTH, JSON.parse(authData));
+          return;
+        }
+        localStorage.removeItem('auth');
       }
+      router.replace('/login');
     }, []);
 
     if (!auth.jwt) {
@@ -39,4 +43,4 @@ const withAuth = (Component) => {
   }
 }
 
-export default withAuth;
+export default withAdminAuth;
