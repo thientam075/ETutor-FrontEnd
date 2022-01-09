@@ -4,7 +4,8 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import Navbar from "../components/navbar";
 import dynamic from "next/dynamic";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import { API } from "../configs";
 export default function PostAdvertise() {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
@@ -16,7 +17,7 @@ export default function PostAdvertise() {
     { key: "5", label: "Thứ 5" },
     { key: "6", label: "Thứ 6" },
     { key: "7", label: "Thứ 7" },
-    { key: "CN", label: "Chủ nhật" },
+    { key: "8", label: "Chủ nhật" },
   ];
   const Editor = dynamic(
     () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
@@ -25,23 +26,26 @@ export default function PostAdvertise() {
   const {
     handleSubmit,
     register,
+    setValue,
+    getValues,
+    watch,
+    control,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
     console.log("data", data);
     fetchData(data);
   };
-  const fetchData = async ({ fullname, email, password, role }) => {
-    await fetch(API.USER.REGISTER, {
+  const fetchData = async ({ subject, cost, time, profile }) => {
+    await fetch(API.TinQuangBa.CREATE, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         data: {
-          Fullname: fullname,
-          Email: email,
-          Password: password,
-          TypeAccount: role,
-          IsBan: 0,
+          Subject: subject,
+          Cost: cost,
+          Time: time,
+          Profile: profile,
         },
       }),
     })
@@ -53,6 +57,7 @@ export default function PostAdvertise() {
   };
   return (
     <>
+      {console.log("selected2222", watch("time"))}
       <Navbar />
       <div className="container">
         <div className="row">
@@ -66,33 +71,34 @@ export default function PostAdvertise() {
                 </div>
                 <div className="row">
                   <div className="col-md-12">
-                    <form>
-                      <div className="form-group row mb-5">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                      <div className="form-group row mt-5">
                         <label
-                          htmlFor="username"
+                          htmlFor="subjects"
                           className="col-4 col-form-label"
                         >
                           Môn học
                         </label>
                         <div className="col-8">
                           <input
-                            id="username"
-                            name="username"
-                            placeholder="Môn học"
+                            id="subjects"
+                            name="subjects"
+                            placeholder="Môn học(vd: Toán, Lý...)"
                             className="form-control here"
-                            required="required"
                             type="text"
+                            {...register("subject", {
+                              required: "*Vui lòng nhập các môn học",
+                            })}
                           />
                         </div>
                       </div>
-                
-
-                      <div className="form-group row mb-5">
+                      
+                      <div className="form-group row mt-5">
                         <div className="offset-4 col-8">
                           <button
-                            name="submit"
                             type="submit"
                             className="btn btn-primary"
+                            onSubmit={handleSubmit(onSubmit)}
                           >
                             Đăng thông tin quảng bá
                           </button>
