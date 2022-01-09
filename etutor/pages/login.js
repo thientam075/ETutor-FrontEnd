@@ -40,7 +40,11 @@ export default function Login() {
           return;
         }
         setAction(Actions.UPDATE_AUTH, result);
-        router.replace('/');
+        if (result.user.TypeAccount === 0) {
+          router.replace('/listAccount');
+        } else {
+          router.replace('/');
+        }
       } else {
         ToastHelper.error(result.error.message);
       }

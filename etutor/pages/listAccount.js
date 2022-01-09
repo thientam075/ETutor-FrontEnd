@@ -2,7 +2,7 @@ import Navbar from "../components/navbar";
 import React, { useEffect, useState } from 'react';
 import { API } from '../configs';
 import qs from 'qs';
-import withAuth from '../hoc/withAuth';
+import withAdminAuth from "../hoc/withAdminAuth";
 import Loader from "react-loader-spinner";
 import { Button, Modal } from 'react-bootstrap';
 import { ToastHelper } from '../utils/Toast';
@@ -200,7 +200,7 @@ const ListAccount = () => {
   )
 }
 
-export default  withAuth(ListAccount); 
+export default  withAdminAuth(ListAccount); 
 
 const styles = {
   wrapTable: {

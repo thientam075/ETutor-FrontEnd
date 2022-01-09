@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import Loader from "react-loader-spinner";
 import Pagination from "../components/pagination";
 import moment from 'moment';
+import withAdminAuth from '../hoc/withAdminAuth';
 
 const ThCenter = (props) => <th {...props} className="text-center bg-light" />
 const TdCenter = (props) => <td {...props} className="text-center" />
@@ -152,7 +153,7 @@ const ListReport = () => {
   )
 }
 
-export default ListReport; 
+export default withAdminAuth(ListReport); 
 
 const styles = {
   wrapTable: {

@@ -15,6 +15,10 @@ export const reducer = (state = initialState, action) => {
         ...state,
         auth: payload,
       }
+    case Actions.LOG_OUT:
+      localStorage.removeItem('auth');
+      return initialState;
+
     default:
       return state;
   }
