@@ -6,7 +6,37 @@ import {
 } from "react-icons/bs";
 import { IoMailSharp } from "react-icons/io5";
 import ImageRegister from "../public/images/signup_signin/signin.png";
+import { useState, useContext } from "react";
+import { API } from "../configs";
+import { AppContext } from '../context';
+import { Actions } from '../context/action';
+import { useRouter } from 'next/router';
+
 export default function login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { setAction } = useContext(AppContext);
+  const router = useRouter();
+
+  const onLogin = async () => {
+    try {
+      const response = await fetch(API.AUTH.LOGIN, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            identifier: email,
+            password: password,
+        })
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        setAction(Actions.UPDATE_AUTH, result);
+        router.replace('/');
+      }
+    } catch (e) {}
+  }
+
   return (
     <>
       <div className="main">
@@ -47,6 +77,8 @@ export default function login() {
                                 id="form3Example3c"
                                 className="form-control"
                                 placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                               />
                               {/* <label className="form-label" htmlFor="form3Example3c">Your Email</label> */}
                             </div>
@@ -63,6 +95,8 @@ export default function login() {
                                 id="form3Example4c"
                                 className="form-control"
                                 placeholder="Mật khẩu"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                               />
                               {/* <label className="form-label" htmlFor="form3Example4c">Password</label> */}
                             </div>
@@ -90,6 +124,7 @@ export default function login() {
                             <button
                               type="button"
                               className="btn btn-primary btn-lg"
+                              onClick={onLogin}
                             >
                               Đăng nhập
                             </button>
