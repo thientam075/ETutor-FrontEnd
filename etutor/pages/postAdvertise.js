@@ -10,7 +10,6 @@ import withAuth from "../hoc/withAuth";
 function PostAdvertise() {
   const [showToast, setShowToast] = useState(false);
   const { jwt, user } = useAppSelector((state) => state.auth);
-  console.log('user', user)
   const [contentToast, setContentToast] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const optionsArray = [
@@ -74,8 +73,8 @@ function PostAdvertise() {
             <div className="card">
               <div className="card-body">
                 <div className="row">
-                  <div className="col-md-12">
-                    <h4>Thông tin quảng bá:</h4>
+                  <div className="d-flex justify-content-center">
+                    <h2>THÔNG TIN QUẢNG BÁ</h2>
                   </div>
                 </div>
                 <div className="row">
@@ -111,7 +110,7 @@ function PostAdvertise() {
                       )}
                       <div className="form-group row mt-5">
                         <label htmlFor="cost" className="col-4 col-form-label">
-                          Chi phí(1 giờ):
+                          Chi phí(nghìn/giờ):
                         </label>
                         <div className="col-8">
                           <input
@@ -200,7 +199,7 @@ function PostAdvertise() {
                         </div>
                       )}
                       <div className="form-group row mt-5">
-                        <div className="offset-4 col-8">
+                        <div className="d-flex justify-content-center">
                           <button
                             type="submit"
                             className="btn btn-primary"
