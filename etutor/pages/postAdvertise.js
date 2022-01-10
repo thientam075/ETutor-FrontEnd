@@ -1,15 +1,18 @@
-import { EditorState } from "draft-js";
 import React, { useState } from "react";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { Controller, useForm } from "react-hook-form";
+import Loader from "react-loader-spinner";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
+import MyToast from "../components/myToast";
 import Navbar from "../components/navbar";
-import dynamic from "next/dynamic";
-import { useForm, Controller } from "react-hook-form";
-import { API } from "../configs";
-export default function PostAdvertise() {
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
+import { useAppSelector } from "../context";
+import { TinQuangBaService } from "../serviceAPI/TinQuangBaService";
+import withAuth from "../hoc/withAuth";
+function PostAdvertise() {
+  const [showToast, setShowToast] = useState(false);
+  const { jwt, user } = useAppSelector((state) => state.auth);
+  console.log('user', user)
+  const [contentToast, setContentToast] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const optionsArray = [
     { key: "2", label: "Thứ 2" },
     { key: "3", label: "Thứ 3" },
@@ -19,10 +22,6 @@ export default function PostAdvertise() {
     { key: "7", label: "Thứ 7" },
     { key: "8", label: "Chủ nhật" },
   ];
-  const Editor = dynamic(
-    () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
-    { ssr: false }
-  );
   const {
     handleSubmit,
     register,
@@ -32,36 +31,44 @@ export default function PostAdvertise() {
     control,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    console.log("data", data);
-    console.log("editorState", editorState);
-    const newData = { ...data };
-    newData.editorState = editorState;
-    fetchData(data);
+  const handleShowToast = (content) => {
+    setContentToast(content);
+    setShowToast(true);
   };
-  const fetchData = async ({ subject, cost, time, profile }) => {
-    await fetch(API.TinQuangBa.CREATE, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        data: {
-          Subjects: subject,
-          Cost: cost,
-          Time: time,
-          Profile: profile,
-        },
-      }),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        console.log("Thanh cong: ", result);
-      })
-      .catch((err) => console.error(err));
+  const handleCloseToast = () => {
+    setShowToast(false);
+  };
+  const onSubmit = (data) => {
+    fetchData(user.id, data);
+  };
+  const fetchData = async (teacherId, data) => {
+    setIsLoading(true);
+    const res = await TinQuangBaService.postAdvertise(teacherId, data);
+    if (res && res.ok) {
+      handleShowToast("Đăng tin thành công");
+    } else {
+      handleShowToast("Đã xảy ra lỗi");
+    }
+    setIsLoading(false);
   };
   return (
     <>
       <Navbar />
+      <MyToast
+        content={contentToast}
+        show={showToast}
+        handleClose={handleCloseToast}
+      ></MyToast>
       <div className="container">
+        {isLoading && (
+          <Loader
+            type="ThreeDots"
+            color="#00BFFF"
+            height={75}
+            width={75}
+            timeout={0}
+          />
+        )}
         <div className="row">
           <div className="">
             <div className="card">
@@ -214,3 +221,5 @@ export default function PostAdvertise() {
     </>
   );
 }
+
+export default withAuth(PostAdvertise);
