@@ -5,7 +5,7 @@ import MyToast from './myToast';
 
 import { BaoCaoService } from '../serviceAPI/BaoCaoService';
 
-export default function ReportTutorDialog({show, handleClose }) {
+export default function ReportTutorDialog({show, handleClose, idStudent, idTeacher, jwt }) {
 
   const [reason, setReason] = useState("");
   const [error, setError] = useState(false);
@@ -56,7 +56,7 @@ export default function ReportTutorDialog({show, handleClose }) {
             setError(true);
           }
           else{
-            const res = await BaoCaoService.reportTeacher(1, 1, reason);
+            const res = await BaoCaoService.reportTeacher(idStudent, idTeacher, reason, jwt);
               
             if(res && res.ok){
               handleBeforeClose();

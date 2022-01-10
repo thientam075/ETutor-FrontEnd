@@ -26,7 +26,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
   const id = context.params.id;
   const res = await (await fetch(API.TinQuangBa.FULLINFO(id))).json();
-  console.log('res' + res);
+  
   const data = await res.rows[0];
 
   return {
@@ -72,8 +72,8 @@ function InfoDetailTutor({tutor}) {
         handleShowReportDialog={handleShowReportDialog}
         handleShowRateDialog={handleShowRateDialog}
       />
-      <ReportTutorDialog show={showReportDialog} handleClose={handleCloseReportDialog}></ReportTutorDialog>
-      <RateTutorDialog show={showRateDialog} handleClose={handleCloseRateDialog}></RateTutorDialog>
+      <ReportTutorDialog show={showReportDialog} handleClose={handleCloseReportDialog} idStudent={user.id} idTeacher={tutor.id} jwt={jwt}></ReportTutorDialog>
+      <RateTutorDialog show={showRateDialog} handleClose={handleCloseRateDialog} idStudent={user.id} idTeacher={tutor.id} jwt={jwt}></RateTutorDialog>
        </>: <h5 className="text-center mt-3"> Gia sư hiện tại hoặc bị ban không tồn tại</h5>}
     </>
   );

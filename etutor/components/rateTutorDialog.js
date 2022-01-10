@@ -4,7 +4,7 @@ import {Button, Modal, Form} from 'react-bootstrap';
 import { DanhGiaService } from '../serviceAPI/DanhGiaService';
 import MyToast from './myToast';
 
-export default function RateTutorDialog({show, handleClose }) {
+export default function RateTutorDialog({show, handleClose, idStudent, idTeacher, jwt}) {
 
   const [star, setStar] = useState(1);
   const [comment, setComment] = useState("");
@@ -69,7 +69,7 @@ export default function RateTutorDialog({show, handleClose }) {
             setError(true);
           }
           else{
-            const res = await DanhGiaService.rateTeacher(1, 1, parseInt(star), comment);
+            const res = await DanhGiaService.rateTeacher(idStudent, idTeacher, parseInt(star), comment, jwt);
             
             if(res && res.ok){
               handleBeforeClose();
