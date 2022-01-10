@@ -9,12 +9,14 @@ import Loader from "react-loader-spinner";
 import Pagination from "../components/pagination";
 import moment from 'moment';
 import withAdminAuth from '../hoc/withAdminAuth';
+import { useAppSelector } from "../context";
 
 const ThCenter = (props) => <th {...props} className="text-center bg-light" />
 const TdCenter = (props) => <td {...props} className="text-center" />
 
 const ListReport = () => {
   const router = useRouter();
+  const { jwt } = useAppSelector((state) => state.auth);
 
   const [reports, setReports] = useState([]);
   const [page, setPage] = useState(router.query.page || 1);
@@ -55,7 +57,13 @@ const ListReport = () => {
       }, {
         encodeValuesOnly: true,
       })
-      const response = await fetch(API.REPORT.LIST + query);
+      const response = await fetch(API.REPORT.LIST + query, {
+        method: 'GET',
+        headers: { 
+          'Authorization': `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+      });
       if (response.status === 200) {
         const result = await response.json();
         setPageCount(result.meta.pagination.pageCount);
