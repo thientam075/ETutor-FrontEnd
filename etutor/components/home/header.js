@@ -1,17 +1,8 @@
-import withAuth from "../hoc/withAuth";
-import Navbar from "../components/navbar";
-import styles from "../components/home/home.module.css";
-import TamImg from "../public/home/Tam.jpg";
-import ThanhImg from "../public/home/Thanh.jpg";
-import ThienImg from "../public/home/Thien.jpg";
-import ThinhImg from "../public/home/Thinh.jpg";
-import { BsSearch } from "react-icons/bs";
-import Intro from "../components/home/intro";
-import Team from "../components/home/team";
-const Home = () => {
+import styles from "./home.module.css";
+const Header = () => {
   return (
     <>
-      <Navbar />
+   
       <header className={`${styles[`masthead`]}`}>
         <div className={`${styles[`container`]}`}>
           <div className={`${styles[`masthead-subheading`]}`}>
@@ -34,10 +25,8 @@ const Home = () => {
           </a>
         </div>
       </header> 
-      <Intro/>
-      <Team/>
     </>
   );
 };
 
-export default withAuth(Home);
+export default Header;
