@@ -26,6 +26,12 @@ a {
   height: 125px;
   border-radius: 50%;
 }
+.avatarChat {
+  vertical-align: middle;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
 .marginInfo{
   margin-left: 12.813rem;
 }

@@ -7,6 +7,7 @@ import Loader from "react-loader-spinner";
 import { Button, Modal } from 'react-bootstrap';
 import { ToastHelper } from '../utils/Toast';
 import { useAppSelector } from '../context';
+import { NguoiDungService } from "../serviceAPI/NguoiDungService";
  
 const ThCenter = (props) => <th {...props} className="text-center bg-light" />
 const TdCenter = (props) => <td {...props} className="text-center" />
@@ -35,13 +36,7 @@ const ListAccount = () => {
       }, {
         encodeValuesOnly: true,
       })
-      const response = await fetch(API.USER.LIST + query, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${jwt}`,
-          'Content-Type': 'application/json',
-        }
-      });
+      const response = await NguoiDungService.listUser(jwt, query);
       const result = await response.json();
       if (response.status === 200) {
         setAccounts(result.filter((a) => a.id !== user.id));
@@ -66,16 +61,7 @@ const ListAccount = () => {
 
       setIsLoading(true);
       try {
-        const response = await fetch(API.USER.MANAGE_ACCESS(account.id), {
-          method: 'PUT',
-          headers: { 
-            'Authorization': `Bearer ${jwt}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            IsBan: !account.IsBan,
-          })
-        });
+        const response = await NguoiDungService.manageAccess(jwt, account);
         const result = await response.json();
         if (response.status === 200) {
           setAccounts((accounts) => {

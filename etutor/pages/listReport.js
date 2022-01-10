@@ -2,7 +2,6 @@ import Navbar from "../components/navbar";
 import React, { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { API } from '../configs';
 import qs from 'qs';
 import { useRouter } from 'next/router';
 import Loader from "react-loader-spinner";
@@ -10,6 +9,7 @@ import Pagination from "../components/pagination";
 import moment from 'moment';
 import withAdminAuth from '../hoc/withAdminAuth';
 import { useAppSelector } from "../context";
+import { BaoCaoService } from "../serviceAPI/BaoCaoService";
 
 const ThCenter = (props) => <th {...props} className="text-center bg-light" />
 const TdCenter = (props) => <td {...props} className="text-center" />
@@ -19,7 +19,7 @@ const ListReport = () => {
   const { jwt } = useAppSelector((state) => state.auth);
 
   const [reports, setReports] = useState([]);
-  const [page, setPage] = useState(router.query.page || 1);
+  const [page, setPage] = useState();
   const [pageCount, setPageCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,7 +30,16 @@ const ListReport = () => {
   });
   const [endDate, setEndDate] = useState(new Date());
 
+  useEffect(() => {
+    if (router.query.page) {
+      setPage(parseInt(router.query.page));
+    }
+  }, [router.query.page]);
+
   const getListReport = async (page, startDate, endDate) => {
+    if (!page) {
+      return
+    }
     setIsLoading(true);
     try {
       const query = qs.stringify({
@@ -57,13 +66,7 @@ const ListReport = () => {
       }, {
         encodeValuesOnly: true,
       })
-      const response = await fetch(API.REPORT.LIST + query, {
-        method: 'GET',
-        headers: { 
-          'Authorization': `Bearer ${jwt}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await BaoCaoService.listReport(jwt, query);
       if (response.status === 200) {
         const result = await response.json();
         setPageCount(result.meta.pagination.pageCount);
@@ -77,15 +80,9 @@ const ListReport = () => {
     getListReport(page, startDate, endDate);
   }, [page, startDate, endDate]);
 
-  useEffect(() => {
-    if (router.query.page) {
-      setPage(router.query.page);
-    }
-  }, [router.query.page]);
-
   const onChangePage = (page) => {
-    setPage(page);
     router.push(`/listReport?page=${page}`, undefined, { shallow: true });
+    setPage(page);
   }
 
   const fields = [

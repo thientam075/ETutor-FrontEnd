@@ -16,5 +16,17 @@ export const BaoCaoService = {
           }
         })
       })
+  },
+  listReport: async (jwt, query) => {
+    if (!jwt) {
+      return;
+    }
+    return await fetch(API.REPORT.LIST + query, {
+      method: 'GET',
+      headers: { 
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      },
+    });
   }
 }

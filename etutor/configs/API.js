@@ -7,7 +7,9 @@ export const API = {
   },
   USER: {
     LIST: API_ROOT + "/users/?",
-    MANAGE_ACCESS: (id) => API_ROOT + `/users/${id}`,
+    UPDATE: (id) => API_ROOT + `/users/${id}`,
+    MANAGE_ACCESS: (id) => API_ROOT `/users/${id}`,
+    DETAIL: (id) => API_ROOT + `/users/${id}`,
   },
   REPORT: {
     LIST: API_ROOT + "/bao-caos/?",
@@ -29,4 +31,7 @@ export const API = {
     GETBYIDTEACHER: (id) =>
     API_ROOT + `/tin-quang-bas/getAdByTeacherId/${id}`,
   },
+  COMMENTS:{
+    LIST: (id) => API_ROOT + `/danh-gia/listComments/${id}`,
+  }
 };

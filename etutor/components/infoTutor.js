@@ -1,6 +1,10 @@
 
 import {useEffect} from 'react';
+import { useRouter } from "next/router";
+import Comments from './comments';
+
 export default function InfoTutor({
+  id,
   name,
   description,
   star,
@@ -8,10 +12,13 @@ export default function InfoTutor({
   subjects,
   Times,
   email,
+  avatar,
   cost,
   handleShowReportDialog,
   handleShowRateDialog
 }) {
+
+  const router = useRouter();
 
   const marginInfo = {
     marginLeft: "12.813rem",
@@ -40,7 +47,7 @@ export default function InfoTutor({
       <div className="d-flex justify-content-around m-3">
         <div className="d-flex">
           <img
-            src="https://www.w3schools.com/howto/img_avatar.png"
+            src={avatar ? avatar :"https://res.cloudinary.com/dangthanh/image/upload/v1641804706/AvatarEtutor/user_ryrffo.png"}
             className="avatarDetail"
           ></img>
           <div className="m-4 ps-2">
@@ -54,7 +61,9 @@ export default function InfoTutor({
           </div>
         </div>
         <div className="d-flex align-items-center">
-          <button type="button" className="btn btn-primary m-1">
+          <button type="button" className="btn btn-primary m-1" onClick={() => {
+            router.push("/chats/" + id);
+          }}>
             Nhắn tin
           </button>
           <button type="button" className="btn btn-warning m-1" onClick={handleShowRateDialog}>
@@ -98,6 +107,7 @@ export default function InfoTutor({
           </ul>
         </div>
       </div>
+      <Comments id = {id}/>
     </>
   );
 }

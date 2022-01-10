@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { ToastHelper } from "../utils/Toast";
 import Loader from "react-loader-spinner";
 import {TinQuangBaService} from '../serviceAPI/TinQuangBaService';
+import { NguoiDungService } from "../serviceAPI/NguoiDungService";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -26,14 +27,7 @@ export default function Login() {
   const onLogin = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(API.AUTH.LOGIN, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          identifier: email,
-          password: password,
-        }),
-      });
+      const response = await NguoiDungService.login(email, password);
       const result = await response.json();
       if (response.status === 200) {
         if (result.user.IsBan) {
