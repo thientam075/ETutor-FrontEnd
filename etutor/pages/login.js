@@ -6,7 +6,7 @@ import {
 } from "react-icons/bs";
 import { IoMailSharp } from "react-icons/io5";
 import ImageRegister from "../public/images/signup_signin/signin.png";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { API } from "../configs";
 import { AppContext } from "../context";
 import { Actions } from "../context/action";

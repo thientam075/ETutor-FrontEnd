@@ -10,6 +10,7 @@ export default function Navbar() {
   const user = useAppSelector((state) => state.auth.user);
 
   const isAdmin = user.TypeAccount === 0;
+  const isTeacher = user.TypeAccount === 2;
 
   const router = useRouter();
   const { setAction } = useContext(AppContext);
@@ -87,7 +88,7 @@ export default function Navbar() {
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
-                href="#"
+                href="/profile"
                 id="navbarDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -96,16 +97,20 @@ export default function Navbar() {
                 {user.Fullname}
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Trang cá nhân
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Something esle
-                  </a>
-                </li>
+                {!isAdmin &&
+                  <li>
+                    <a className="dropdown-item" href="/profile">
+                      Trang cá nhân
+                    </a>
+                  </li>
+                }
+                {isTeacher &&
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Thông tin quảng bá
+                    </a>
+                  </li>
+                }
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
