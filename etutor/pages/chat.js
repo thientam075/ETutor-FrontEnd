@@ -19,6 +19,17 @@ const theme = "light";
 const ChatComponent = ({ channel }) => {
   const [mounted, setMounted] = useState(false);
 
+  const renderMessage = (data) => {
+    return (
+      <div className="w-100" style={{textAlign: data.isOwn ? 'right' : 'left'}}>
+        <p >
+          <strong>{data.message.sender?.name}</strong> {data.time}
+        </p>
+        <p >{data.message.message.text}</p>
+      </div>
+    )
+  }
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -31,7 +42,7 @@ const ChatComponent = ({ channel }) => {
           {mounted && (
             <PubNubProvider client={pubnub}>
               <Chat {...{ currentChannel, theme }}>
-                <MessageList fetchMessages={10}/>
+                <MessageList fetchMessages={10} messageRenderer={renderMessage}/>
                 <MessageInput />
               </Chat>
             </PubNubProvider>

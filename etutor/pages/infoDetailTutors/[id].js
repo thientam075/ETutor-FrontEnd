@@ -7,6 +7,8 @@ import RateTutorDialog from "../../components/rateTutorDialog";
 import ReportTutorDialog from "../../components/reportTutorDialog";
 import withAuth from "../../hoc/withAuth";
 import { useAppSelector } from '../../context';
+
+
 export const getStaticPaths = async () => {
   const res = await TinQuangBaService.AllTutor();
   const pages = await res.json();
