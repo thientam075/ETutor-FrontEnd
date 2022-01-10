@@ -22,6 +22,7 @@ export const API = {
     RANKTUTOR: API_ROOT + `/tin-quang-bas/rankTutor`,
     SEARCH_TUTOR: (name) =>
       API_ROOT + `/tin-quang-bas/searchTutor?name=${name}`,
+    UPDATE_INDEX: `/tin-quang-bas/updateIndex`,
     FULLINFO: (id) =>
     API_ROOT + `/tin-quang-bas/fullInfo/${id}`,
     CREATE: API_ROOT + `/tin-quang-bas`,

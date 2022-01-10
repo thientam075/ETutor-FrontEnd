@@ -8,15 +8,15 @@ import { IoMailSharp } from "react-icons/io5";
 import ImageRegister from "../public/images/signup_signin/signin.png";
 import { useState, useContext } from "react";
 import { API } from "../configs";
-import { AppContext } from '../context';
-import { Actions } from '../context/action';
-import { useRouter } from 'next/router';
-import { ToastHelper } from '../utils/Toast';
+import { AppContext } from "../context";
+import { Actions } from "../context/action";
+import { useRouter } from "next/router";
+import { ToastHelper } from "../utils/Toast";
 import Loader from "react-loader-spinner";
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const { setAction } = useContext(AppContext);
@@ -26,32 +26,41 @@ export default function Login() {
     setIsLoading(true);
     try {
       const response = await fetch(API.AUTH.LOGIN, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           identifier: email,
           password: password,
-        })
+        }),
       });
       const result = await response.json();
       if (response.status === 200) {
         if (result.user.IsBan) {
-          ToastHelper.error('Tài khoản đã bị khóa');
+          ToastHelper.error("Tài khoản đã bị khóa");
           return;
         }
         setAction(Actions.UPDATE_AUTH, result);
         if (result.user.TypeAccount === 0) {
-          router.replace('/listAccount');
+          router.replace("/listAccount");
         } else {
-          router.replace('/');
+          router.replace("/");
         }
       } else {
         ToastHelper.error(result.error.message);
       }
     } catch (e) {}
     setIsLoading(false);
-  }
+  };
 
+  // Update index for document vector of full text search
+  const updateIndex = async () => {
+    await fetch(API.TinQuangBa.UPDATE_INDEX).then((response) => {
+      console.log(response);
+    });
+  };
+  useEffect(() => {
+    updateIndex();
+  }, []);
   return (
     <>
       <div className="main">
@@ -88,8 +97,6 @@ export default function Login() {
                         </p>
 
                         <form className="mx-1 mx-md-5">
-                      
-
                           <div className="d-flex flex-row align-items-center mb-4">
                             <IoMailSharp
                               size={28}
@@ -126,8 +133,6 @@ export default function Login() {
                             </div>
                           </div>
 
-                        
-
                           <div className="form-check d-flex justify-content-center mb-5">
                             {/* <input
                               className="form-check-input me-2"
@@ -139,8 +144,10 @@ export default function Login() {
                               className="form-check-label"
                               htmlFor="form2Example3"
                             >
-                          
-                          Chưa có tài khoản? <a href="http://localhost:3000/register">Đăng ký ngay!</a>
+                              Chưa có tài khoản?{" "}
+                              <a href="http://localhost:3000/register">
+                                Đăng ký ngay!
+                              </a>
                             </label>
                           </div>
 
