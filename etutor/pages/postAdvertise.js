@@ -34,6 +34,9 @@ export default function PostAdvertise() {
   } = useForm();
   const onSubmit = (data) => {
     console.log("data", data);
+    console.log("editorState", editorState);
+    const newData = { ...data };
+    newData.editorState = editorState;
     fetchData(data);
   };
   const fetchData = async ({ subject, cost, time, profile }) => {
@@ -42,7 +45,7 @@ export default function PostAdvertise() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         data: {
-          Subject: subject,
+          Subjects: subject,
           Cost: cost,
           Time: time,
           Profile: profile,
@@ -57,7 +60,6 @@ export default function PostAdvertise() {
   };
   return (
     <>
-      {console.log("selected2222", watch("time"))}
       <Navbar />
       <div className="container">
         <div className="row">
@@ -92,7 +94,100 @@ export default function PostAdvertise() {
                           />
                         </div>
                       </div>
-                      
+                      {errors.subject && (
+                        <div
+                          className="mb-4 d-flex justify-content-center"
+                          style={{ color: "#fa3434", fontSize: "12px" }}
+                        >
+                          {errors.subject && errors.subject.message}
+                        </div>
+                      )}
+                      <div className="form-group row mt-5">
+                        <label htmlFor="cost" className="col-4 col-form-label">
+                          Chi phí(1 giờ):
+                        </label>
+                        <div className="col-8">
+                          <input
+                            id="cost"
+                            name="cost"
+                            placeholder="Chi phí(vd:100)"
+                            className="form-control here"
+                            type="number"
+                            {...register("cost", {
+                              required:
+                                "*Vui lòng nhập chi phí mỗi giờ học(vd: 100)",
+                            })}
+                          />
+                        </div>
+                      </div>
+                      {errors.cost && (
+                        <div
+                          className="mb-4 d-flex justify-content-center"
+                          style={{ color: "#fa3434", fontSize: "12px" }}
+                        >
+                          {errors.cost && errors.cost.message}
+                        </div>
+                      )}
+                      <div className="form-group row mt-5">
+                        <label htmlFor="time" className="col-4 col-form-label">
+                          Thời gian dạy:
+                        </label>
+                        <div className="col-8">
+                          <Controller
+                            name="time"
+                            defaultValue={false}
+                            control={control}
+                            rules={{ required: "Vui lòng chọn thời gian" }}
+                            render={({ field }) => (
+                              <DropdownMultiselect
+                                {...field}
+                                options={optionsArray}
+                                name="time"
+                                handleOnChange={(selected) => {
+                                  if (selected.length !== 0) {
+                                    errors.time = false;
+                                  }
+                                  setValue("time", selected.toString());
+                                }}
+                              />
+                            )}
+                          />
+                        </div>
+                      </div>
+                      {errors.time &&
+                        (watch("time") !== "" ||
+                          getValues("time").length === 0) && (
+                          <div
+                            className="mb-4 d-flex justify-content-center"
+                            style={{ color: "#fa3434", fontSize: "12px" }}
+                          >
+                            {errors.time && errors.time.message}
+                          </div>
+                        )}
+                      <div className="form-group row mt-5">
+                        <label
+                          htmlFor="publicinfo"
+                          className="col-4 col-form-label"
+                        >
+                          Thông tin quảng bá(kinh nghiệm, thành tích...)
+                        </label>
+                        <div className="col-8">
+                          <div
+                            style={{
+                              border: "1px solid black",
+                              padding: "2px",
+                              minHeight: "400px",
+                            }}
+                          >
+                            <Editor
+                              editorState={editorState}
+                              onEditorStateChange={setEditorState}
+                              
+                            />
+                          </div>
+                        </div>
+                      </div>
+
                       <div className="form-group row mt-5">
                         <div className="offset-4 col-8">
                           <button
