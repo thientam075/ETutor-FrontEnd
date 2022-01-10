@@ -1,12 +1,13 @@
 import { API } from "../configs/API";
 
 export const TinQuangBaService = {
-  postAdvertise: async (idTeacher, data) => {
+  postAdvertise: async (idTeacher, data, jwt) => {
     const { subject, cost, time, profile } = data;
 
     return await fetch(API.TinQuangBa.CREATE, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Authorization': `Bearer ${jwt}`,
+      'Content-Type':'application/json' },
       body: JSON.stringify({
         data: {
           IDTeacher: idTeacher,
