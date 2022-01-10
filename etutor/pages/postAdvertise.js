@@ -42,7 +42,7 @@ function PostAdvertise() {
   };
   const fetchData = async (teacherId, data) => {
     setIsLoading(true);
-    const res = await TinQuangBaService.postAdvertise(teacherId, data);
+    const res = await TinQuangBaService.postAdvertise(teacherId, data, jwt);
     if (res && res.ok) {
       handleShowToast("Đăng tin thành công");
     } else {

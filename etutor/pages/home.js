@@ -8,14 +8,14 @@ export default function Home() {
       <header className={`${styles[`masthead`]}`}>
         <div className={`${styles[`container`]}`}>
           <div className={`${styles[`masthead-subheading`]}`}>
-            Welcome To Our Studio!
+            Chào mừng bạn đến với ETutor
           </div>
           <div
             className={`${styles[`masthead-heading`]} ${
               styles[`text-uppercase`]
             }`}
           >
-            It Nice To Meet You
+            Sứ mệnh của chúng tôi là kết nối kiến thức
           </div>
           <a
             className={`${styles[`btn`]} ${styles[`btn-primary`]} ${
@@ -23,13 +23,13 @@ export default function Home() {
             } ${styles[`text-uppercase`]}`}
             href="#services"
           >
-            Tell Me More
+            Tham gia ngay
           </a>
         </div>
       </header>
 
 
-      
+
     </>
   );
 }

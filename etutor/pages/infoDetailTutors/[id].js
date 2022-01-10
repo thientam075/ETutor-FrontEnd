@@ -3,11 +3,10 @@ import InfoTutor from '../../components/infoTutor';
 import Navbar from "../../components/navbar";
 import {TinQuangBaService} from "../../serviceAPI/TinQuangBaService";
 
-import { useAppSelector } from "../../context";
 import RateTutorDialog from "../../components/rateTutorDialog";
 import ReportTutorDialog from "../../components/reportTutorDialog";
 import withAuth from "../../hoc/withAuth";
-
+import { useAppSelector } from '../../context';
 export const getStaticPaths = async () => {
   const res = await TinQuangBaService.AllTutor();
   const pages = await res.json();
@@ -35,6 +34,7 @@ export const getStaticProps = async (context) => {
 }
 
 function InfoDetailTutor({tutor}) {
+  const { jwt, user } = useAppSelector((state) => state.auth);
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showRateDialog, setShowRateDialog] = useState(false);
 
@@ -68,6 +68,7 @@ function InfoDetailTutor({tutor}) {
         email = {tutor.email}
         Times = {tutor.time}
         cost = {tutor.cost}
+        avatar = {tutor.avatar}
         handleShowReportDialog={handleShowReportDialog}
         handleShowRateDialog={handleShowRateDialog}
       />

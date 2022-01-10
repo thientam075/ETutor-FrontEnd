@@ -8,6 +8,7 @@ export default function InfoTutor({
   subjects,
   Times,
   email,
+  avatar,
   cost,
   handleShowReportDialog,
   handleShowRateDialog
@@ -40,7 +41,7 @@ export default function InfoTutor({
       <div className="d-flex justify-content-around m-3">
         <div className="d-flex">
           <img
-            src="https://www.w3schools.com/howto/img_avatar.png"
+            src={avatar ? avatar :"https://res.cloudinary.com/dangthanh/image/upload/v1641804706/AvatarEtutor/user_ryrffo.png"}
             className="avatarDetail"
           ></img>
           <div className="m-4 ps-2">
