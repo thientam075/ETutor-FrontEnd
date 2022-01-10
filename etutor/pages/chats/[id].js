@@ -69,11 +69,21 @@ const ChatComponent = ({}) => {
 
   const renderMessage = (data) => {
     return (
-      <div className="w-100" style={{textAlign: data.isOwn ? 'right' : 'left'}}>
-        <p >
-          <strong>{data.message.sender?.name}</strong> {data.time}
-        </p>
-        <p >{data.message.message.text}</p>
+      <div className="w-100 container" style={{textAlign: data.isOwn ? 'right' : 'left'}}>
+        <div className='row '>
+          {!data.isOwn &&
+            <div className='col-sm-1'><img src={data.isOwn ? user.Avatar : user2.Avatar}  className="avatarChat"></img></div>
+          }
+          <div className='col-sm-11'>
+            <p >
+              <strong>{data.message.sender?.name}</strong> {data.time}
+            </p>
+            <p >{data.message.message.text}</p>
+          </div>
+          {data.isOwn &&
+            <div className='col-sm-1'><img src={data.isOwn ? user.Avatar : user2.Avatar}  className="avatarChat"></img></div>
+          }
+        </div>
       </div>
     )
   }
