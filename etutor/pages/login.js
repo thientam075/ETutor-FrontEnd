@@ -13,6 +13,7 @@ import { Actions } from "../context/action";
 import { useRouter } from "next/router";
 import { ToastHelper } from "../utils/Toast";
 import Loader from "react-loader-spinner";
+import {TinQuangBaService} from '../serviceAPI/TinQuangBaService';
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -53,14 +54,6 @@ export default function Login() {
   };
 
   // Update index for document vector of full text search
-  const updateIndex = async () => {
-    await fetch(API.TinQuangBa.UPDATE_INDEX).then((response) => {
-      console.log(response);
-    });
-  };
-  useEffect(() => {
-    updateIndex();
-  }, []);
   return (
     <>
       <div className="main">

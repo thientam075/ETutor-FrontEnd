@@ -5,11 +5,10 @@ export default function ListGroup({ typeList, listData, error, loading }) {
     typeList === "Search"
       ? "Không tìm thấy gia sư phù hợp"
       : "Danh sách hiện đang cập nhật";
-  const load = typeList === "Search" ? false : loading;
 
   return (
     <>
-      {load && listData && listData.length === 0 ? (
+      {loading && listData && listData.length === 0 ? (
         <h5 className="text-center mt-3">{ErrorMessage}</h5>
       ) : (
         <>

@@ -1,24 +1,19 @@
 import Navbar from "../components/navbar";
 import ListGroup from "../components/listgroup";
-import { API } from "../configs";
-import { useState} from "react";
-
 import withAuth from "../hoc/withAuth";
-import {useAppSelector} from "../context";
+import {TinQuangBaService} from "../serviceAPI/TinQuangBaService";
+import { useAppSelector } from "../context";
+import { useState, useEffect } from "react";
 
 function Ranktutor() {
-
-  const { jwt, user } = useAppSelector((state) => state.auth);
   const [rankTutor, setRankTutor] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const { jwt, user } = useAppSelector((state) => state.auth);
   const fechtRankTutor = async (jwt) => {
-    await fetch(API.TinQuangBa.RANKTUTOR, {
-      headers: {
-        "Authorization": `Bearer ${jwt}`,
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
+    TinQuangBaService.rankTutor(jwt)
+    .then((res) => {
       if (!res.ok) {
         setError(true);
       } else {
@@ -31,7 +26,16 @@ function Ranktutor() {
       }
     });
   };
-  
+
+  const updateIndex = async () => {
+    await TinQuangBaService.updateIndex().then((response) => {
+      console.log(response);
+    });
+  };
+  useEffect(() => {
+    fechtRankTutor(jwt);
+    updateIndex();
+  },[loading]);
   return (
     <>
       <Navbar />
