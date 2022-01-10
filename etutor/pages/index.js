@@ -1,74 +1,192 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import withAuth from '../hoc/withAuth'
-
+import withAuth from "../hoc/withAuth";
+import Navbar from "../components/navbar";
+import styles from "../components/home/home.module.css";
+import TamImg from "../public/home/Tam.jpg";
+import ThanhImg from "../public/home/Thanh.jpg";
+import ThienImg from "../public/home/Thien.jpg";
+import ThinhImg from "../public/home/Thinh.jpg";
+import { BsSearch } from "react-icons/bs";
 const Home = () => {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>E-tutor</title>
-        <meta name="description" content="App connect tutor and student" />
-        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
+    <>
+      <Navbar />
+      <header className={`${styles[`masthead`]}`}>
+        <div className={`${styles[`container`]}`}>
+          <div className={`${styles[`masthead-subheading`]}`}>
+            Chào mừng bạn đến với ETutor
+          </div>
+          <div
+            className={`${styles[`masthead-heading`]} ${
+              styles[`text-uppercase`]
+            }`}
           >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
+            Sứ mệnh của chúng tôi là kết nối kiến thức
+          </div>
           <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
+            className={`${styles[`btn`]} ${styles[`btn-primary`]} ${
+              styles[`btn-xl`]
+            } ${styles[`text-uppercase`]}`}
+            href="#services"
           >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
+            Tham gia ngay
           </a>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div>
-  )
-}
+      </header>
+      
+      {/* Team */}
+      <section className={`${styles[`page-section bg-light`]}`} id="team">
+        <div className={`${styles[`container`]}`}>
+          <div className={`${styles[`text-center`]}`}>
+            <h2 className={`${styles[`section-heading text-uppercase`]}`}>
+              Nhóm phát triển
+            </h2>
+            <h3 className={`${styles[`section-subheading text-muted`]}`}>
+              Chúng tôi đang cố gắng hoàn thiện sản phẩm ngày càng tốt hơn.
+            </h3>
+          </div>
+          <div className={`${styles[`row`]}`}>
+            <div className={`${styles[`col-lg-3`]}`}>
+              <div className={`${styles[`team-member`]}`}>
+                <img
+                  className={`${styles[`mx-auto`]} ${styles[`rounded-circle`]}`}
+                  src={TamImg.src}
+                  alt="..."
+                />
+                <h4>Thiện Tâm</h4>
+                <p className={`${styles[`text-muted`]}`}>Developer</p>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-twitter`]}`}></i>
+                </a>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-facebook-f`]}`}></i>
+                </a>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-linkedin-in`]}`}></i>
+                </a>
+              </div>
+            </div>
+            <div className={`${styles[`col-lg-3`]}`}>
+              <div className={`${styles[`team-member`]}`}>
+                <img
+                  className={`${styles[`mx-auto`]} ${styles[`rounded-circle`]}`}
+                  src={ThanhImg.src}
+                  alt="..."
+                />
+                <h4>Minh Thành</h4>
+                <p className={`${styles[`text-muted`]}`}>Developer</p>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-twitter`]}`}></i>
+                </a>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-facebook-f`]}`}></i>
+                </a>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-linkedin-in`]}`}></i>
+                </a>
+              </div>
+            </div>
+            <div className={`${styles[`col-lg-3`]}`}>
+              <div className={`${styles[`team-member`]}`}>
+                <img
+                  className={`${styles[`mx-auto`]} ${styles[`rounded-circle`]}`}
+                  src={ThienImg.src}
+                  alt="..."
+                />
+                <h4>Huy Thiện</h4>
+                <p className={`${styles[`text-muted`]}`}>Developer</p>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-twitter`]}`}></i>
+                </a>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-facebook-f`]}`}></i>
+                </a>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-linkedin-in`]}`}></i>
+                </a>
+              </div>
+            </div>
+            <div className={`${styles[`col-lg-3`]}`}>
+              <div className={`${styles[`team-member`]}`}>
+                <img
+                  className={`${styles[`mx-auto`]} ${styles[`rounded-circle`]}`}
+                  src={ThinhImg.src}
+                  alt="..."
+                />
+                <h4>Hữu Thịnh</h4>
+                <p className={`${styles[`text-muted`]}`}>Developer</p>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-twitter`]}`}></i>
+                </a>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-facebook-f`]}`}></i>
+                </a>
+                <a
+                  className={`${
+                    styles[`btn btn-dark btn-social mx-2" href="#!`]
+                  }`}
+                >
+                  <i className={`${styles[`fab fa-linkedin-in`]}`}></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className={`${styles[`row`]}`}>
+            <div className={`${styles[`col-lg-8 mx-auto text-center`]}`}>
+              <p className={`${styles[`large text-muted`]}`}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut
+                eaque, laboriosam veritatis, quos non quis ad perspiciatis,
+                totam corporis ea, alias ut unde.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
 
 export default withAuth(Home);
