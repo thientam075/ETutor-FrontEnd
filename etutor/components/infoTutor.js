@@ -1,6 +1,10 @@
 
 import {useEffect} from 'react';
+import { useRouter } from "next/router";
+
+
 export default function InfoTutor({
+  id,
   name,
   description,
   star,
@@ -13,6 +17,8 @@ export default function InfoTutor({
   handleShowReportDialog,
   handleShowRateDialog
 }) {
+
+  const router = useRouter();
 
   const marginInfo = {
     marginLeft: "12.813rem",
@@ -55,7 +61,9 @@ export default function InfoTutor({
           </div>
         </div>
         <div className="d-flex align-items-center">
-          <button type="button" className="btn btn-primary m-1">
+          <button type="button" className="btn btn-primary m-1" onClick={() => {
+            router.push("/chats/" + id);
+          }}>
             Nhắn tin
           </button>
           <button type="button" className="btn btn-warning m-1" onClick={handleShowRateDialog}>

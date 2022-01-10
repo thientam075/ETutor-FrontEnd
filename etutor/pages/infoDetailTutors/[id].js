@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import InfoTutor from '../../components/infoTutor';
 import Navbar from "../../components/navbar";
 import {TinQuangBaService} from "../../serviceAPI/TinQuangBaService";
@@ -62,6 +63,7 @@ function InfoDetailTutor({tutor}) {
        {tutor ?
        <> 
       <InfoTutor
+        id={tutor.id}
         name={tutor.fullname}
         star={tutor.star}
         total_rating={tutor.total_rating}
