@@ -32,8 +32,7 @@ export default function Register() {
       const response = await NguoiDungService.register(fullname, email, password, role);
       const result = await response.json();
       if (response.status === 200) {
-        setAction(Actions.UPDATE_AUTH, result);
-        router.replace('/');
+        router.replace('/login');
       } else {
         ToastHelper.error(result.error.message);
       }
