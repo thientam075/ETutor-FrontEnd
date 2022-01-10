@@ -56,7 +56,7 @@ export const TinQuangBaService = {
   rankTutor: async (jwt) => {
     return await fetch(API.TinQuangBa.RANKTUTOR, {
       headers: {
-        Authorization: `Bearer ${jwt}`,
+        "Authorization": `Bearer ${jwt}`,
         "Content-Type": "application/json",
       },
     });

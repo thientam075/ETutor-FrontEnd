@@ -29,4 +29,7 @@ export const API = {
     API_ROOT + `/tin-quang-bas/fullInfo/${id}`,
     CREATE: API_ROOT + `/tin-quang-bas`,
   },
+  COMMENTS:{
+    LIST: (id) => API_ROOT + `/danh-gia/listComments/${id}`,
+  }
 };

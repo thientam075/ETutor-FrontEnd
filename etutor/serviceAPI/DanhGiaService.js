@@ -17,5 +17,14 @@ export const DanhGiaService = {
           }
         })
       })
-  }
+  },
+  listComment: async (id,jwt) => {
+    return await fetch(API.COMMENTS.LIST(id), {
+      headers: {
+        "Authorization": `Bearer ${jwt}`,
+        "Content-Type": "application/json",
+      },
+    });
+  },
+
 }

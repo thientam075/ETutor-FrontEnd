@@ -1,7 +1,7 @@
 
 import {useEffect} from 'react';
 import { useRouter } from "next/router";
-
+import Comments from './comments';
 
 export default function InfoTutor({
   id,
@@ -107,6 +107,7 @@ export default function InfoTutor({
           </ul>
         </div>
       </div>
+      <Comments id = {id}/>
     </>
   );
 }
