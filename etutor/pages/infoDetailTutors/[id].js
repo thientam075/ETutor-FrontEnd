@@ -71,8 +71,8 @@ function InfoDetailTutor({tutor}) {
         handleShowReportDialog={handleShowReportDialog}
         handleShowRateDialog={handleShowRateDialog}
       />
-      <ReportTutorDialog show={showReportDialog} handleClose={handleCloseReportDialog}></ReportTutorDialog>
-      <RateTutorDialog show={showRateDialog} handleClose={handleCloseRateDialog}></RateTutorDialog>
+      <ReportTutorDialog show={showReportDialog} handleClose={handleCloseReportDialog} idStudent={user.id} idTeacher={tutor.id} jwt={jwt}></ReportTutorDialog>
+      <RateTutorDialog show={showRateDialog} handleClose={handleCloseRateDialog} idStudent={user.id} idTeacher={tutor.id} jwt={jwt}></RateTutorDialog>
        </>: <h5 className="text-center mt-3"> Gia sư hiện tại hoặc bị ban không tồn tại</h5>}
     </>
   );
