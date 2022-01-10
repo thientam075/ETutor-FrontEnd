@@ -7,7 +7,8 @@ export const API = {
   },
   USER: {
     LIST: API_ROOT + "/users/?",
-    MANAGE_ACCESS: (id) => API_ROOT + `/users/${id}`,
+    UPDATE: (id) => API_ROOT + `/users/${id}`,
+    MANAGE_ACCESS: (id) => API_ROOT `/users/${id}`,
   },
   REPORT: {
     LIST: API_ROOT + "/bao-caos/?",

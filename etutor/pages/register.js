@@ -10,6 +10,7 @@ import { Actions } from "../context/action";
 import { ToastHelper } from '../utils/Toast';
 import { useRouter } from "next/router";
 import Loader from "react-loader-spinner";
+import { NguoiDungService } from "../serviceAPI/NguoiDungService";
 
 export default function Register() {
   const {
@@ -28,19 +29,7 @@ export default function Register() {
   const fetchData = async ({ fullname, email, password, role }) => {
     setIsLoading(true);
     try {
-      const response = await fetch(API.AUTH.REGISTER, {
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: email,
-          email: email,
-          password: password,
-          Fullname: fullname,
-          TypeAccount: role,
-          Blocked: false,
-          IsBan: false,
-        })
-      });
+      const response = await NguoiDungService.register(fullname, email, password, role);
       const result = await response.json();
       if (response.status === 200) {
         setAction(Actions.UPDATE_AUTH, result);
