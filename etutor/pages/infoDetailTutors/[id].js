@@ -1,5 +1,4 @@
-import {useRouter} from "next/router";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { API } from "../../configs";
 import InfoTutor from '../../components/infoTutor';
 import Navbar from "../../components/navbar";
@@ -8,6 +7,7 @@ import Navbar from "../../components/navbar";
 import { useAppSelector } from "../../context";
 import RateTutorDialog from "../../components/rateTutorDialog";
 import ReportTutorDialog from "../../components/reportTutorDialog";
+import withAuth from "../../hoc/withAuth";
 
 export const getStaticPaths = async () => {
   const pages = await (await fetch(API.TinQuangBa.LIST)).json();
@@ -34,8 +34,7 @@ export const getStaticProps = async (context) => {
   };
 }
 
-export default function InfoDetailTutor({tutor}) {
-  const router = useRouter();
+function InfoDetailTutor({tutor}) {
   const { jwt, user } = useAppSelector((state) => state.auth);
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showRateDialog, setShowRateDialog] = useState(false);
@@ -55,12 +54,7 @@ export default function InfoDetailTutor({tutor}) {
   const handleCloseRateDialog = () => {
     setShowRateDialog(false);
   }
-
-  useEffect(() => {
-    if(!jwt){
-      router.push('/login');
-    }
-  })
+  
   return (
     <>
        <Navbar />
@@ -85,3 +79,4 @@ export default function InfoDetailTutor({tutor}) {
   );
 }
 
+export default withAuth(InfoDetailTutor);

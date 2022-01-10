@@ -1,12 +1,14 @@
 import Navbar from "../components/navbar";
 import ListGroup from "../components/listgroup";
 import { API } from "../configs";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-export default function Ranktutor() {
+import { useState} from "react";
+
+import withAuth from "../hoc/withAuth";
+import {useAppSelector} from "../context";
+
+function Ranktutor() {
 
   const { jwt, user } = useAppSelector((state) => state.auth);
-  const router = useRouter();
   const [rankTutor, setRankTutor] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -29,12 +31,7 @@ export default function Ranktutor() {
       }
     });
   };
-  useEffect(() => {
-    if(!jwt){
-      router.push('/login');
-    }
-    fechtRankTutor(jwt);
-  }, [loading]);
+  
   return (
     <>
       <Navbar />
@@ -46,3 +43,5 @@ export default function Ranktutor() {
     </>
   );
 }
+
+export default withAuth(Ranktutor);

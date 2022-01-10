@@ -4,8 +4,9 @@ import { API } from "../configs";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useAppSelector } from "../context";
+import withAuth from "../hoc/withAuth";
 
-export default function SearchTutor() {
+function SearchTutor() {
   const router = useRouter();
   const { name } = router.query;
 
@@ -34,10 +35,6 @@ export default function SearchTutor() {
     });
   };
   useEffect(() => {
-    if (!jwt) {
-      router.push("/login");
-    }
-    console.log(router.query);
     if (name) {
       fechtSearchTutor(name,jwt);
     }
@@ -53,3 +50,5 @@ export default function SearchTutor() {
     </>
   );
 }
+
+export default withAuth(SearchTutor);
