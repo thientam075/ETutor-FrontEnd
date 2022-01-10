@@ -8,6 +8,7 @@ export default function InfoTutor({
   subjects,
   Times,
   email,
+  cost,
   handleShowReportDialog,
   handleShowRateDialog
 }) {
@@ -19,7 +20,21 @@ export default function InfoTutor({
     if(subjects){
       subjects = subjects.split(" ");
     }
-  })
+  }) 
+  const TranferTime = ({times}) => {
+    const res = times.split(",");
+    return res.map((time, i) => {
+      let value = "Thứ";
+      if(time === "CN"){
+        value = "Chủ nhật";
+      }else{
+        value = value + " " + time;
+      }
+      return (<li key={i}>
+        {value}
+      </li>);
+    })
+  }
   return (
     <>
       <div className="d-flex justify-content-around m-3">
@@ -56,34 +71,24 @@ export default function InfoTutor({
           <p>{description ? description : "Hiện tại chưa có mô tả nào"}</p>
         </div>
       </div>
-      <div style={marginInfo} className="mt-2">
-        <div>
+      <div style={marginInfo} className="mt-2 d-flex">
+        <div className="me-3">
           <h6>Môn học</h6>
-          {/* <ul>
-            {subjects.length !== 0
-              ? subjects.map((subject, index) => {
-                  return <li key={index}>{subject}</li>;
-                })
-              : "Hiện tại chưa có mô tả về môn học nào"}
-          </ul> */}
           {subjects ? <p>{subjects}</p> : <p>Hiện tại chưa có môn học nào</p>}
+        </div>
+        <div className = "ms-5">
+          <h6>Học phí</h6>
+          {cost ? <p>{cost + "VND"}</p> : <p>Hiện tại gia sư chưa cập nhật học phí nào</p>}
         </div>
       </div>
       <div style={marginInfo} className="mt-2 row">
-        {/* {Times.length !== 0
-          ? Times.map((Time, index) => {
-              return (
-                <div className="card col-3" style={{ width: "18rem", marginRight: "10px" }} key={index}>
-                  <div className="card-body">
-                    <h5 className="card-title">{Time.value}</h5>
-                    <p className="card-text">{Time.price}</p>
-                    <p className="card-text">{Time.subject}</p>
-                  </div>
-                </div>
-              );
-            })
-          : "Hiện tại không có lịch học"} */}
-          {Times ? Times : "Hiện tại gia sư chưa cung cấp thời gian học"}
+          {Times ? (
+            <div className= "p-0">
+            <h6>Thời gian</h6>
+            <ul>
+            <TranferTime times = {Times}/>
+          </ul>
+          </div>) : "Hiện tại gia sư chưa cung cấp thời gian học"}
       </div>
       <div style={marginInfo} className="mt-2">
         <div>

@@ -15,7 +15,6 @@ export const getStaticPaths = async () => {
       params: {id: tutor.id.toString()}
     }
   });
-  console.log(paths);
   return {
     paths: paths,
     fallback: false
@@ -24,45 +23,18 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const id = context.params.id;
-  const res = await fetch(API.TinQuangBa.FULLINFO(id));
-  const data = await res.json();
+  const res = await (await fetch(API.TinQuangBa.FULLINFO(id))).json();
+  console.log('res' + res);
+  const data = await res.rows[0];
 
   return {
-    props: {tutor: data.rows}
+    props: {tutor: data}
   };
 }
 
 export default function InfoDetailTutor({tutor}) {
-  // const router = useRouter();
-  // const {tutorID} = router.query;
-  // const [tutor, setTutor] = useState(null);
-  // const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(false);
-
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showRateDialog, setShowRateDialog] = useState(false);
-
-  // const fetchTutor = async (tutorID) => {
-  //   await fetch(API.TinQuangBa.FULLINFO(tutorID), {
-  //     headers: {'Content-Type':'application/json'},
-  //     })
-  //     .then(res => {
-  //       if (!res.ok) {
-  //         setError(true);
-  //       } else {
-  //         res.json().then((result) => {
-  //           if (result.rowCount !== 0) {
-  //             setTutor(result.rows);
-  //             setLoading(true);
-  //           }
-  //         });
-  //       }
-  //     }) 
-  // };
-  // useEffect(() => {
-  //   console.log('router: ' + router);
-  //   fetchTutor(tutorID);
-  // }, [loading]);
 
   const handleShowReportDialog = () => {
     setShowReportDialog(true);
@@ -79,6 +51,7 @@ export default function InfoDetailTutor({tutor}) {
   const handleCloseRateDialog = () => {
     setShowRateDialog(false);
   }
+  console.log('tutor' + tutor);
   return (
     <>
        <Navbar />
@@ -92,12 +65,13 @@ export default function InfoDetailTutor({tutor}) {
         profile = {tutor.profile}
         email = {tutor.email}
         Times = {tutor.time}
+        cost = {tutor.cost}
         handleShowReportDialog={handleShowReportDialog}
         handleShowRateDialog={handleShowRateDialog}
       />
       <ReportTutorDialog show={showReportDialog} handleClose={handleCloseReportDialog}></ReportTutorDialog>
       <RateTutorDialog show={showRateDialog} handleClose={handleCloseRateDialog}></RateTutorDialog>
-       </>: <h5 className="text-center mt-3"> Gia sư hiện tại không tồn tại</h5>}
+       </>: <h5 className="text-center mt-3"> Gia sư hiện tại hoặc bị ban không tồn tại</h5>}
     </>
   );
 }
