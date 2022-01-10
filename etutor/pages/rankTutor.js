@@ -2,13 +2,20 @@ import Navbar from "../components/navbar";
 import ListGroup from "../components/listgroup";
 import { API } from "../configs";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 export default function Ranktutor() {
+
+  const { jwt, user } = useAppSelector((state) => state.auth);
+  const router = useRouter();
   const [rankTutor, setRankTutor] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const fechtRankTutor = async () => {
+  const fechtRankTutor = async (jwt) => {
     await fetch(API.TinQuangBa.RANKTUTOR, {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Authorization": `Bearer ${jwt}`,
+        "Content-Type": "application/json",
+      },
     }).then((res) => {
       if (!res.ok) {
         setError(true);
@@ -23,12 +30,19 @@ export default function Ranktutor() {
     });
   };
   useEffect(() => {
-    fechtRankTutor();
-  },[loading]);
+    if(!jwt){
+      router.push('/login');
+    }
+    fechtRankTutor(jwt);
+  }, [loading]);
   return (
     <>
       <Navbar />
-      <ListGroup typeList={"rankTutor"} listData={rankTutor} loading = {loading}/>
+      <ListGroup
+        typeList={"rankTutor"}
+        listData={rankTutor}
+        loading={loading}
+      />
     </>
   );
 }

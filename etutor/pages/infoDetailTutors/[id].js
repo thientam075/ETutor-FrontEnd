@@ -4,6 +4,8 @@ import { API } from "../../configs";
 import InfoTutor from '../../components/infoTutor';
 import Navbar from "../../components/navbar";
 
+
+import { useAppSelector } from "../../context";
 import RateTutorDialog from "../../components/rateTutorDialog";
 import ReportTutorDialog from "../../components/reportTutorDialog";
 
@@ -33,6 +35,8 @@ export const getStaticProps = async (context) => {
 }
 
 export default function InfoDetailTutor({tutor}) {
+  const router = useRouter();
+  const { jwt, user } = useAppSelector((state) => state.auth);
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showRateDialog, setShowRateDialog] = useState(false);
 
@@ -51,7 +55,12 @@ export default function InfoDetailTutor({tutor}) {
   const handleCloseRateDialog = () => {
     setShowRateDialog(false);
   }
-  console.log('tutor' + tutor);
+
+  useEffect(() => {
+    if(!jwt){
+      router.push('/login');
+    }
+  })
   return (
     <>
        <Navbar />
