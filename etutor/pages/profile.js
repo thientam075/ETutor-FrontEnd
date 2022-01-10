@@ -37,7 +37,7 @@ function Profile() {
     if(fullname !== ""){
       const res = await NguoiDungService.updateInfo(jwt, user, fullname);
       
-      if(res){
+      if(res  && res.ok){
         const userRes = await res.json();
         setAction(Actions.UPDATE_AUTH, {jwt: jwt, user: userRes});
         setContentToast("Cập nhật thành công");
@@ -71,7 +71,7 @@ function Profile() {
 
       if(resUpload.secure_url){
         const res = await NguoiDungService.updateAvatar(jwt, user, resUpload.secure_url);
-        if(res){
+        if(res  && res.ok){
           const userRes = await res.json();
           setAction(Actions.UPDATE_AUTH, {jwt: jwt, user: userRes});
           setContentToast("Cập nhật thành công");

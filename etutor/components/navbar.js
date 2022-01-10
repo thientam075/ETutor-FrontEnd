@@ -29,7 +29,7 @@ export default function Navbar() {
               {!isAdmin && (
                 <>
                   <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="#">
+                    <a className="nav-link active" aria-current="page" href="/">
                       Trang chủ
                     </a>
                   </li>
