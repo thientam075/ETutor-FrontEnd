@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { API } from "../../configs";
 import InfoTutor from '../../components/infoTutor';
 import Navbar from "../../components/navbar";
-
+import {TinQuangBaService} from "../../serviceAPI/TinQuangBaService";
 
 import { useAppSelector } from "../../context";
 import RateTutorDialog from "../../components/rateTutorDialog";
@@ -10,7 +9,8 @@ import ReportTutorDialog from "../../components/reportTutorDialog";
 import withAuth from "../../hoc/withAuth";
 
 export const getStaticPaths = async () => {
-  const pages = await (await fetch(API.TinQuangBa.LIST)).json();
+  const res = await TinQuangBaService.AllTutor();
+  const pages = await res.json();
 
   const paths = await pages.rows.map(tutor => {
     return {
@@ -25,9 +25,9 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const id = context.params.id;
-  const res = await (await fetch(API.TinQuangBa.FULLINFO(id))).json();
-  console.log('res' + res);
-  const data = await res.rows[0];
+  const res = await TinQuangBaService.fullInfo(id);
+  const result = await res.json();
+  const data = await result.rows[0];
 
   return {
     props: {tutor: data}
@@ -35,7 +35,6 @@ export const getStaticProps = async (context) => {
 }
 
 function InfoDetailTutor({tutor}) {
-  const { jwt, user } = useAppSelector((state) => state.auth);
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showRateDialog, setShowRateDialog] = useState(false);
 

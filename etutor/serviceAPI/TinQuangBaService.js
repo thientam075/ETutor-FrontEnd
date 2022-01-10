@@ -44,4 +44,33 @@ export const TinQuangBaService = {
       }),
     });
   },
+  searchTutor: async (name, jwt) => {
+    return await fetch(API.TinQuangBa.SEARCH_TUTOR(name), {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "application/json",
+      },
+    });
+  },
+  rankTutor: async (jwt) => {
+    return await fetch(API.TinQuangBa.RANKTUTOR, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "application/json",
+      },
+    });
+  },
+  fullInfo: async (id) => {
+    return await fetch(API.TinQuangBa.FULLINFO(id), {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  },
+  AllTutor: async () => {
+    return await fetch(API.TinQuangBa.LIST);
+  },
+  updateIndex: async () => {
+    return await fetch(API.TinQuangBa.UPDATE_INDEX);
+  }
 };

@@ -1,11 +1,10 @@
 import Navbar from "../components/navbar";
 import ListGroup from "../components/listgroup";
-import { API } from "../configs";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useAppSelector } from "../context";
 import withAuth from "../hoc/withAuth";
-
+import {TinQuangBaService} from "../serviceAPI/TinQuangBaService";
 function SearchTutor() {
   const router = useRouter();
   const { name } = router.query;
@@ -16,12 +15,8 @@ function SearchTutor() {
   const [error, setError] = useState(false);
 
   const fechtSearchTutor = async (name,jwt) => {
-    await fetch(API.TinQuangBa.SEARCH_TUTOR(name), {
-      headers: {
-        "Authorization": `Bearer ${jwt}`,
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
+    TinQuangBaService.searchTutor(name,jwt)
+    .then((res) => {
       if (!res.ok) {
         setError(true);
       } else {
