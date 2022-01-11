@@ -6,7 +6,7 @@ import Comments from './comments';
 export default function InfoTutor({
   id,
   name,
-  description,
+  profile,
   star,
   total_rating,
   subjects,
@@ -54,9 +54,8 @@ export default function InfoTutor({
           <div className="m-4 ps-2">
             <h5>{name}</h5>
             <div>
-              <div>Lượt đánh giá: {star}</div>
               <div>
-                {star} sao trên {total_rating} lượt đánh giá
+                {Math.round(star * 100)/ 100} sao trên {total_rating} lượt đánh giá
               </div>
             </div>
           </div>
@@ -78,7 +77,7 @@ export default function InfoTutor({
       <div style={marginInfo} className="mt-2">
         <div>
           <h6>Giới thiệu</h6>
-          <p>{description ? description : "Hiện tại chưa có mô tả nào"}</p>
+          <p>{profile ? profile : "Hiện tại chưa có mô tả nào"}</p>
         </div>
       </div>
       <div style={marginInfo} className="mt-2 d-flex">

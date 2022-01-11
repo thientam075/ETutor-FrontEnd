@@ -27,7 +27,7 @@ export const getStaticProps = async (context) => {
   const id = context.params.id;
   const res = await TinQuangBaService.fullInfo(id);
   const result = await res.json();
-  const data = await result.rows[0];
+  const data = await result;
 
   return {
     props: { tutor: data },
@@ -38,6 +38,8 @@ function InfoDetailTutor({ tutor }) {
   const { jwt, user } = useAppSelector((state) => state.auth);
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showRateDialog, setShowRateDialog] = useState(false);
+  const [star, setStar] = useState(parseFloat(tutor.star));
+  const [totalRating, setTotalRating] = useState(parseInt(tutor.total_rating));
   const [loaded, setLoaded] = useState(false);
   const handleShowReportDialog = () => {
     setShowReportDialog(true);
@@ -56,6 +58,11 @@ function InfoDetailTutor({ tutor }) {
     setLoaded(!loaded);
   };
 
+  const handleRate = (newstar) => {
+    setStar(((star * totalRating) + newstar)/(totalRating + 1));
+    setTotalRating(totalRating + 1);
+  }
+
   return (
     <>
       <Navbar />
@@ -64,8 +71,8 @@ function InfoDetailTutor({ tutor }) {
           <InfoTutor
             id={tutor.id}
             name={tutor.fullname}
-            star={tutor.star}
-            total_rating={tutor.total_rating}
+            star={star}
+            total_rating={totalRating}
             subjects={tutor.subjects}
             profile={tutor.profile}
             email={tutor.email}
@@ -89,6 +96,7 @@ function InfoDetailTutor({ tutor }) {
             idStudent={user.id}
             idTeacher={tutor.id}
             jwt={jwt}
+            handleRate={handleRate}
           ></RateTutorDialog>
         </>
       ) : (

@@ -27,7 +27,7 @@ export default function ShortInfo({
         <div>{name}</div>
       </div>
       <div className="col-3 mt-3">
-        {star} sao trên {total_rating} lượt đánh giá
+        {Math.round(star * 100) / 100} sao trên {total_rating} lượt đánh giá
       </div>
       <div className="col">
         <a
