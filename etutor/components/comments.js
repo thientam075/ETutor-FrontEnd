@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../context";
 import { DanhGiaService } from "../serviceAPI/DanhGiaService";
-import { useState, useEffect } from "react";
 export default function Comments({ id,loaded }) {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);

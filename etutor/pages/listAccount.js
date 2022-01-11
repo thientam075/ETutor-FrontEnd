@@ -1,13 +1,12 @@
-import Navbar from "../components/navbar";
-import React, { useEffect, useState } from 'react';
-import { API } from '../configs';
 import qs from 'qs';
-import withAdminAuth from "../hoc/withAdminAuth";
-import Loader from "react-loader-spinner";
+import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { ToastHelper } from '../utils/Toast';
+import Loader from "react-loader-spinner";
+import Navbar from "../components/navbar";
 import { useAppSelector } from '../context';
+import withAdminAuth from "../hoc/withAdminAuth";
 import { NguoiDungService } from "../serviceAPI/NguoiDungService";
+import { ToastHelper } from '../utils/Toast';
  
 const ThCenter = (props) => <th {...props} className="text-center bg-light" />
 const TdCenter = (props) => <td {...props} className="text-center" />

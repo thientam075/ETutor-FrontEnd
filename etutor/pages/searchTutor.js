@@ -1,10 +1,10 @@
-import Navbar from "../components/navbar";
-import ListGroup from "../components/listgroup";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import ListGroup from "../components/listgroup";
+import Navbar from "../components/navbar";
 import { useAppSelector } from "../context";
 import withAuth from "../hoc/withAuth";
-import {TinQuangBaService} from "../serviceAPI/TinQuangBaService";
+import { TinQuangBaService } from "../serviceAPI/TinQuangBaService";
 function SearchTutor() {
   const router = useRouter();
   const { name } = router.query;

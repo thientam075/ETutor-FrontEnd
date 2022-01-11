@@ -1,14 +1,8 @@
-import styles from "./home.module.css";
 import {
-  BsFillPersonFill,
-  BsMailbox2,
-  BsFillLockFill,
-  BsKeyFill,
-  BsFillTelephoneFill,
-  BsPinMapFill,
-  BsFacebook
+  BsFacebook, BsFillTelephoneFill, BsMailbox2, BsPinMapFill
 } from "react-icons/bs";
 import MailImg from "../../public/home/mail.png";
+import styles from "./home.module.css";
 const Contact = () => {
   return (
     <>

@@ -1,20 +1,15 @@
+import { useRouter } from "next/router";
+import { useContext, useState } from "react";
 import {
-  BsFillPersonFill,
-  BsMailbox2,
-  BsFillLockFill,
-  BsKeyFill,
+  BsFillLockFill
 } from "react-icons/bs";
 import { IoMailSharp } from "react-icons/io5";
-import ImageRegister from "../public/images/signup_signin/signin.png";
-import { useState, useContext, useEffect } from "react";
-import { API } from "../configs";
+import Loader from "react-loader-spinner";
 import { AppContext } from "../context";
 import { Actions } from "../context/action";
-import { useRouter } from "next/router";
-import { ToastHelper } from "../utils/Toast";
-import Loader from "react-loader-spinner";
-import {TinQuangBaService} from '../serviceAPI/TinQuangBaService';
+import ImageRegister from "../public/images/signup_signin/signin.png";
 import { NguoiDungService } from "../serviceAPI/NguoiDungService";
+import { ToastHelper } from "../utils/Toast";
 
 export default function Login() {
   const [email, setEmail] = useState("");

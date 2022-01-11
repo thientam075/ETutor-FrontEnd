@@ -1,8 +1,8 @@
 import "@popperjs/core";
-import { BsSearch } from "react-icons/bs";
-import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useAppSelector, AppContext } from "../context";
+import { useContext, useEffect, useState } from "react";
+import { BsSearch } from "react-icons/bs";
+import { AppContext, useAppSelector } from "../context";
 import { Actions } from "../context/action";
 import { NguoiDungService } from "../serviceAPI/NguoiDungService";
 export default function Navbar() {
@@ -71,7 +71,7 @@ export default function Navbar() {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/listReport">
+                    <a className="nav-link" href="/listReport/?page=1">
                       Danh sách report
                     </a>
                   </li>
@@ -106,6 +106,7 @@ export default function Navbar() {
 
         <div className="col d-flex justify-content-end">
           <ul className="navbar-nav">
+          {!isAdmin &&
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -137,6 +138,7 @@ export default function Navbar() {
                 })}
               </ul>
             </li>
+          }
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"

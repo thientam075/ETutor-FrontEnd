@@ -1,5 +1,5 @@
-import React from 'react';
 import classNames from 'classnames';
+import React from 'react';
 
 const Pagination = ({ page, pageCount, onChangePage }) => {
   const changePage = (page) => () => {

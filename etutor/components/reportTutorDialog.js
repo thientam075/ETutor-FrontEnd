@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import {Button, Modal, Form} from 'react-bootstrap';
-
+import { Button, Form, Modal } from 'react-bootstrap';
+import { BaoCaoService } from '../serviceAPI/BaoCaoService';
 import MyToast from './myToast';
 
-import { BaoCaoService } from '../serviceAPI/BaoCaoService';
+
 
 export default function ReportTutorDialog({show, handleClose, idStudent, idTeacher, jwt }) {
 

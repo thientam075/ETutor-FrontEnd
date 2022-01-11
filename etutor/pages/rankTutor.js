@@ -1,9 +1,9 @@
-import Navbar from "../components/navbar";
+import { useEffect, useState } from "react";
 import ListGroup from "../components/listgroup";
-import withAuth from "../hoc/withAuth";
-import {TinQuangBaService} from "../serviceAPI/TinQuangBaService";
+import Navbar from "../components/navbar";
 import { useAppSelector } from "../context";
-import { useState, useEffect } from "react";
+import withAuth from "../hoc/withAuth";
+import { TinQuangBaService } from "../serviceAPI/TinQuangBaService";
 
 function Ranktutor() {
   const [rankTutor, setRankTutor] = useState([]);

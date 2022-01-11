@@ -1,13 +1,11 @@
-import Navbar from '../../components/navbar';
+import {
+  Chat, MessageInput, MessageList
+} from "@pubnub/react-chat-components";
+import { useRouter } from "next/router";
 import PubNub from "pubnub";
 import { PubNubProvider } from "pubnub-react";
-import {
-  Chat,
-  MessageList,
-  MessageInput,
-} from "@pubnub/react-chat-components";
-import { useState, useEffect, useMemo } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useMemo, useState } from "react";
+import Navbar from '../../components/navbar';
 import { API } from "../../configs/API";
 import { useAppSelector } from "../../context";
 import withAuth from '../../hoc/withAuth';

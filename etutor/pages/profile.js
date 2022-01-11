@@ -1,16 +1,15 @@
-import { route } from "next/dist/server/router";
-import { useEffect, useState, useContext } from "react";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 import Loader from "react-loader-spinner";
-
 import MyToast from "../components/myToast";
 import Navbar from "../components/navbar";
-
-import { useAppSelector, AppContext } from "../context";
+import { AppContext, useAppSelector } from "../context";
 import { Actions } from "../context/action";
 import withAuth from "../hoc/withAuth";
 import { NguoiDungService } from "../serviceAPI/NguoiDungService";
 import { TinQuangBaService } from "../serviceAPI/TinQuangBaService";
-import { useRouter } from "next/router";
+
+
 function Profile() {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");

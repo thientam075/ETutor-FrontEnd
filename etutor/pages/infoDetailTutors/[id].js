@@ -1,11 +1,11 @@
 import { useState } from "react";
 import InfoTutor from "../../components/infoTutor";
 import Navbar from "../../components/navbar";
-import { TinQuangBaService } from "../../serviceAPI/TinQuangBaService";
 import RateTutorDialog from "../../components/rateTutorDialog";
 import ReportTutorDialog from "../../components/reportTutorDialog";
-import withAuth from "../../hoc/withAuth";
 import { useAppSelector } from '../../context';
+import withAuth from "../../hoc/withAuth";
+import { TinQuangBaService } from "../../serviceAPI/TinQuangBaService";
 
 
 export const getStaticPaths = async () => {

@@ -1,8 +1,8 @@
-import styles from "./home.module.css";
 import TamImg from "../../public/home/Tam.jpg";
 import ThanhImg from "../../public/home/Thanh.jpg";
 import ThienImg from "../../public/home/Thien.jpg";
 import ThinhImg from "../../public/home/Thinh.jpg";
+import styles from "./home.module.css";
 const Team = () => {
   return (
     <>

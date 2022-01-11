@@ -1,4 +1,4 @@
-import { ToastContainer, Toast } from "react-bootstrap"
+import { Toast, ToastContainer } from "react-bootstrap"
 
 export default function MyToast({content, show, handleClose}) {
   return(
