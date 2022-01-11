@@ -33,7 +33,7 @@ export default function InfoTutor({
     const res = times.split(",");
     return res.map((time, i) => {
       let value = "Thứ";
-      if(time === "CN"){
+      if(time === "8"){
         value = "Chủ nhật";
       }else{
         value = value + " " + time;
@@ -87,7 +87,7 @@ export default function InfoTutor({
         </div>
         <div className = "ms-5">
           <h6>Học phí</h6>
-          {cost ? <p>{cost + "VND"}</p> : <p>Hiện tại gia sư chưa cập nhật học phí nào</p>}
+          {cost ? <p>{cost + " VND/h"}</p> : <p>Hiện tại gia sư chưa cập nhật học phí nào</p>}
         </div>
       </div>
       <div style={marginInfo} className="mt-2 row">
