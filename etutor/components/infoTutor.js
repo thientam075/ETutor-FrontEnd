@@ -15,7 +15,8 @@ export default function InfoTutor({
   avatar,
   cost,
   handleShowReportDialog,
-  handleShowRateDialog
+  handleShowRateDialog,
+  loaded
 }) {
 
   const router = useRouter();
@@ -107,7 +108,7 @@ export default function InfoTutor({
           </ul>
         </div>
       </div>
-      <Comments id = {id}/>
+      <Comments id = {id} loaded = {loaded}/>
     </>
   );
 }
