@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Loader from "react-loader-spinner";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
-import Footer from "../components/home/footer";
 import MyToast from "../components/myToast";
 import Navbar from "../components/navbar";
 import { useAppSelector } from "../context";
@@ -291,7 +290,7 @@ function UpdateAdvertise() {
           </div>
         </>
       )}
-      <Footer/>
+      
     </>
   );
 }
