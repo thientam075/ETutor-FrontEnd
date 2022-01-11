@@ -38,7 +38,7 @@ function InfoDetailTutor({ tutor }) {
   const { jwt, user } = useAppSelector((state) => state.auth);
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showRateDialog, setShowRateDialog] = useState(false);
-
+  const [loaded, setLoaded] = useState(false);
   const handleShowReportDialog = () => {
     setShowReportDialog(true);
   };
@@ -53,7 +53,7 @@ function InfoDetailTutor({ tutor }) {
 
   const handleCloseRateDialog = () => {
     setShowRateDialog(false);
-    alert("Reload lại trang nếu bạn muốn xem bình luận mới nhất");
+    setLoaded(!loaded);
   };
 
   return (
@@ -74,6 +74,7 @@ function InfoDetailTutor({ tutor }) {
             avatar={tutor.avatar}
             handleShowReportDialog={handleShowReportDialog}
             handleShowRateDialog={handleShowRateDialog}
+            loaded = {loaded}
           />
           <ReportTutorDialog
             show={showReportDialog}

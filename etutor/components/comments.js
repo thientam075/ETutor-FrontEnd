@@ -1,7 +1,7 @@
 import { useAppSelector } from "../context";
 import { DanhGiaService } from "../serviceAPI/DanhGiaService";
 import { useState, useEffect } from "react";
-export default function Comments({ id }) {
+export default function Comments({ id,loaded }) {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const { jwt, user } = useAppSelector((state) => state.auth);
@@ -22,7 +22,7 @@ export default function Comments({ id }) {
   };
   useEffect(() => {
     feactComment(id, jwt);
-  }, [loading]);
+  }, [loading,loaded]);
   return (
     <>
       <h6 className="mb-3" style={{ marginLeft: "12.813rem" }}>Bình luận</h6>
