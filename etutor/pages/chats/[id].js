@@ -72,7 +72,8 @@ const ChatComponent = ({}) => {
       <div className="w-100 container" style={{textAlign: data.isOwn ? 'right' : 'left'}}>
         <div className='row '>
           {!data.isOwn &&
-            <div className='col-sm-1'><img src={data.isOwn ? user.Avatar : user2.Avatar}  className="avatarChat"></img></div>
+            <div className='col-sm-1'><img src={data.isOwn ? (user.Avatar ? user.Avatar : "https://res.cloudinary.com/dangthanh/image/upload/v1641804706/AvatarEtutor/user_ryrffo.png")
+             : (user2.Avatar ? user2.Avatar : "https://res.cloudinary.com/dangthanh/image/upload/v1641804706/AvatarEtutor/user_ryrffo.png")}  className="avatarChat"></img></div>
           }
           <div className='col-sm-11'>
             <p >
@@ -81,7 +82,8 @@ const ChatComponent = ({}) => {
             <p >{data.message.message.text}</p>
           </div>
           {data.isOwn &&
-            <div className='col-sm-1'><img src={data.isOwn ? user.Avatar : user2.Avatar}  className="avatarChat"></img></div>
+            <div className='col-sm-1'><img src={data.isOwn ?(user.Avatar ? user.Avatar : "https://res.cloudinary.com/dangthanh/image/upload/v1641804706/AvatarEtutor/user_ryrffo.png")
+            : (user2.Avatar ? user2.Avatar : "https://res.cloudinary.com/dangthanh/image/upload/v1641804706/AvatarEtutor/user_ryrffo.png")}  className="avatarChat"></img></div>
           }
         </div>
       </div>
