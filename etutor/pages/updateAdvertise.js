@@ -5,9 +5,9 @@ import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
 import MyToast from "../components/myToast";
 import Navbar from "../components/navbar";
 import { useAppSelector } from "../context";
+import withAuth from "../hoc/withAuth";
 import { TinQuangBaService } from "../serviceAPI/TinQuangBaService";
 
-import withAuth from "../hoc/withAuth";
 function UpdateAdvertise() {
   const [showToast, setShowToast] = useState(false);
   const { jwt, user } = useAppSelector((state) => state.auth);
@@ -48,9 +48,11 @@ function UpdateAdvertise() {
     fetchData(user.id, data);
   };
   const fetchData = async (teacherId, data) => {
-    const res = await TinQuangBaService.updateAdvertise(teacherId, data);
+    const idAd=getValues("id");
+    console.log('id', idAd)
+    const res = await TinQuangBaService.updateAdvertise(idAd, data, jwt);
     if (res && res.ok) {
-      handleShowToast("Đăng tin thành công");
+      handleShowToast("Cập nhật tin thành công");
     } else {
       handleShowToast("Đã xảy ra lỗi");
     }
@@ -60,7 +62,7 @@ function UpdateAdvertise() {
     const res = await TinQuangBaService.getAdvertise(user.id, jwt);
     const temp = await res.json();
     const info = temp.rows[0];
-    
+    setValue("id", info.id);
     setValue("subject", info.subjects);
     setValue("cost", info.cost);
     setValue("profile", info.profile);
@@ -109,7 +111,7 @@ function UpdateAdvertise() {
                   <div className="card-body">
                     <div className="row">
                       <div className="d-flex justify-content-center">
-                        <h2>THÔNG TIN QUẢNG BÁ</h2>
+                        <h2>CẬP NHẬT THÔNG TIN QUẢNG BÁ</h2>
                       </div>
                     </div>
                     <div className="row">

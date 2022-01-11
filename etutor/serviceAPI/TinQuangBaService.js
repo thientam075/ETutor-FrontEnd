@@ -20,7 +20,7 @@ export const TinQuangBaService = {
     });
   },
   getAdvertise: async (userID, jwt) => {
-    return await fetch(API.TinQuangBa.FULLINFO(userID), {
+    return await fetch(API.TinQuangBa.DATABYTEACHERID(userID), {
       method: "GET",
       headers: {
         Authorization: `Bearer ${jwt}`,
@@ -28,15 +28,15 @@ export const TinQuangBaService = {
       },
     });
   },
-  updateAdvertise: async (idTeacher, data) => {
+  updateAdvertise: async (idAd, data, jwt) => {
     const { subject, cost, time, profile } = data;
 
-    return await fetch(API.TinQuangBa.CREATE, {
+    return await fetch(API.TinQuangBa.UPDATE(idAd), {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Authorization': `Bearer ${jwt}`,
+      'Content-Type':'application/json' },
       body: JSON.stringify({
         data: {
-          IDTeacher: idTeacher,
           subjects: subject,
           Cost: cost,
           Time: time,
@@ -77,7 +77,7 @@ export const TinQuangBaService = {
   getAdByIdTeaher: async (jwt, id) => {
     return await fetch(API.TinQuangBa.GETBYIDTEACHER(id), {
       headers: {
-        Authorization: `Bearer ${jwt}`,
+        "Authorization": `Bearer ${jwt}`,
         "Content-Type": "application/json",
       },
     });

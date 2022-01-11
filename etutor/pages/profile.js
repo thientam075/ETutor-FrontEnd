@@ -1,3 +1,4 @@
+import { route } from "next/dist/server/router";
 import { useEffect, useState, useContext } from "react";
 import Loader from "react-loader-spinner";
 
@@ -9,6 +10,7 @@ import { Actions } from "../context/action";
 import withAuth from "../hoc/withAuth";
 import { NguoiDungService } from "../serviceAPI/NguoiDungService";
 import { TinQuangBaService } from "../serviceAPI/TinQuangBaService";
+import { useRouter } from "next/router";
 function Profile() {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -19,7 +21,7 @@ function Profile() {
   const [contentToast, setContentToast] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  const router = useRouter();
   const handleCloseToast = () => {
     setShowToast(false);
   };
@@ -98,19 +100,15 @@ function Profile() {
   };
   const postAd = async () => {
     setIsLoading(true);
-
     const res = await TinQuangBaService.getAdByIdTeaher(jwt, user.id);
-    console.log(res.json());
-    if (res && res.ok) {
-      const userRes = await res.json();
-      setAction(Actions.UPDATE_AUTH, { jwt: jwt, user: userRes });
-      setContentToast("Cập nhật thành công");
-      setShowToast(true);
-      setErrorFullname(false);
-      setIsLoaded(false);
+    // console.log('res',res.json());
+    const resUser=await res.json();
+    if (res &&  resUser.rowCount!==0) {
+      router.replace('/updateAdvertise');   
     } else {
-      setContentToast("Đã xảy ra lỗi");
-      setShowToast(true);
+      router.replace('/postAdvertise');
+      // setContentToast("Đã xảy ra lỗi");
+      // setShowToast(true);
     }
     setIsLoading(false);
   };
