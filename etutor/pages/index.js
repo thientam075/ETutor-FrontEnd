@@ -1,74 +1,43 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import withAuth from '../hoc/withAuth'
-
+import withAuth from "../hoc/withAuth";
+import Navbar from "../components/navbar";
+import styles from "../components/home/home.module.css";
+import TamImg from "../public/home/Tam.jpg";
+import ThanhImg from "../public/home/Thanh.jpg";
+import ThienImg from "../public/home/Thien.jpg";
+import ThinhImg from "../public/home/Thinh.jpg";
+import { BsSearch } from "react-icons/bs";
+import Intro from "../components/home/intro";
+import Team from "../components/home/team";
 const Home = () => {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>E-tutor</title>
-        <meta name="description" content="App connect tutor and student" />
-        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
+    <>
+      <Navbar />
+      <header className={`${styles[`masthead`]}`}>
+        <div className={`${styles[`container`]}`}>
+          <div className={`${styles[`masthead-subheading`]}`}>
+            Chào mừng bạn đến với ETutor
+          </div>
+          <div
+            className={`${styles[`masthead-heading`]} ${
+              styles[`text-uppercase`]
+            }`}
           >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
+            Sứ mệnh của chúng tôi là kết nối kiến thức
+          </div>
           <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
+            className={`${styles[`btn`]} ${styles[`btn-primary`]} ${
+              styles[`btn-xl`]
+            } ${styles[`text-uppercase`]}`}
+            href="#services"
           >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
+            Tham gia ngay
           </a>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div>
-  )
-}
+      </header> 
+      <Intro/>
+      <Team/>
+    </>
+  );
+};
 
 export default withAuth(Home);

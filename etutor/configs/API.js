@@ -28,6 +28,8 @@ export const API = {
     FULLINFO: (id) =>
     API_ROOT + `/tin-quang-bas/fullInfo/${id}`,
     CREATE: API_ROOT + `/tin-quang-bas`,
+    GETBYIDTEACHER: (id) =>
+    API_ROOT + `/tin-quang-bas/getAdByTeacherId/${id}`,
   },
   COMMENTS:{
     LIST: (id) => API_ROOT + `/danh-gia/listComments/${id}`,

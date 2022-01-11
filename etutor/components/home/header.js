@@ -1,10 +1,8 @@
-import Navbar from "../components/navbar";
-import styles from "../components/home/home.module.css";
-
-export default function Home() {
+import styles from "./home.module.css";
+const Header = () => {
   return (
     <>
-      <Navbar />
+   
       <header className={`${styles[`masthead`]}`}>
         <div className={`${styles[`container`]}`}>
           <div className={`${styles[`masthead-subheading`]}`}>
@@ -26,10 +24,9 @@ export default function Home() {
             Tham gia ngay
           </a>
         </div>
-      </header>
-
-
-
+      </header> 
     </>
   );
-}
+};
+
+export default Header;

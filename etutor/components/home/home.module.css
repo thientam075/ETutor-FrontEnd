@@ -10935,6 +10935,7 @@ header.masthead .masthead-subheading {
   display: table;
   content: " ";
 }
+
 .timeline > li:after {
   clear: both;
 }

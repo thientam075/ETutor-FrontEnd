@@ -73,5 +73,13 @@ export const TinQuangBaService = {
   },
   updateIndex: async () => {
     return await fetch(API.TinQuangBa.UPDATE_INDEX);
-  }
+  },
+  getAdByIdTeaher: async (jwt, id) => {
+    return await fetch(API.TinQuangBa.GETBYIDTEACHER(id), {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+        "Content-Type": "application/json",
+      },
+    });
+  },
 };
