@@ -14,7 +14,6 @@ export default function Comments({ id }) {
         res.json().then((result) => {
           if (result.rowsCount !== 0) {
             setComments(result.rows);
-            console.log("res" + result.rows);
             setLoading(true);
           }
         });

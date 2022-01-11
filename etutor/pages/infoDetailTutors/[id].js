@@ -2,7 +2,6 @@ import { useState } from "react";
 import InfoTutor from "../../components/infoTutor";
 import Navbar from "../../components/navbar";
 import { TinQuangBaService } from "../../serviceAPI/TinQuangBaService";
-
 import RateTutorDialog from "../../components/rateTutorDialog";
 import ReportTutorDialog from "../../components/reportTutorDialog";
 import withAuth from "../../hoc/withAuth";
@@ -54,6 +53,7 @@ function InfoDetailTutor({ tutor }) {
 
   const handleCloseRateDialog = () => {
     setShowRateDialog(false);
+    alert("Reload lại trang nếu bạn muốn xem bình luận mới nhất");
   };
 
   return (
