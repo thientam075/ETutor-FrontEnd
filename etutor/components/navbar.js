@@ -1,28 +1,44 @@
 import "@popperjs/core";
 import { BsSearch } from "react-icons/bs";
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useAppSelector, AppContext } from '../context';
+import { useAppSelector, AppContext } from "../context";
 import { Actions } from "../context/action";
-
+import { NguoiDungService } from "../serviceAPI/NguoiDungService";
 export default function Navbar() {
   const [name, setName] = useState(null);
-  const user = useAppSelector((state) => state.auth.user);
+  const { user, jwt } = useAppSelector((state) => state.auth);
+  const [listChat, setListChat] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const isAdmin = user.TypeAccount === 0;
   const isTeacher = user.TypeAccount === 2;
-
+  const isStudent = user.TypeAccount === 1;
   const router = useRouter();
   const { setAction } = useContext(AppContext);
 
   const onLogOut = () => {
     setAction(Actions.LOG_OUT);
-    router.replace('/login');
-  }
+    router.replace("/login");
+  };
   const updateAd = () => {
-    router.replace('/updateAdvertise');
-  }
+    router.replace("/updateAdvertise");
+  };
 
+  const feactDataChat = async (jwt) => {
+    const response = await NguoiDungService.listUser1(jwt);
+    const result = await response.json();
+    if (response.status === 200) {
+      setListChat(result);
+      setLoading(true);
+    } else {
+      ToastHelper.error(result.error.message);
+    }
+  };
+  useEffect(() => {
+    feactDataChat(jwt);
+  }, [loading]);
+  console.log(listChat);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid d-flex row">
@@ -46,7 +62,11 @@ export default function Navbar() {
               {isAdmin && (
                 <>
                   <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="/listAccount">
+                    <a
+                      className="nav-link active"
+                      aria-current="page"
+                      href="/listAccount"
+                    >
                       Danh sách tài khoản
                     </a>
                   </li>
@@ -74,8 +94,11 @@ export default function Navbar() {
                 aria-label="Search"
                 onChange={(e) => setName(e.target.value)}
               />
-              <a className="btn btn-outline-success" href={`/searchTutor?name=${name}`} >
-                <BsSearch/>
+              <a
+                className="btn btn-outline-success"
+                href={`/searchTutor?name=${name}`}
+              >
+                <BsSearch />
               </a>
             </form>
           </div>
@@ -83,10 +106,36 @@ export default function Navbar() {
 
         <div className="col d-flex justify-content-end">
           <ul className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link" href="#">
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                href="#"
+              >
                 Tin nhắn
               </a>
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                {listChat.map((chat, index) => {
+                  if (
+                    (isTeacher && chat.TypeAccount === 1) ||
+                    (isStudent && chat.TypeAccount === 2)
+                  ) {
+                    return (
+                      <li>
+                        <a 
+                          className="dropdown-item"
+                          href={"/chats/" + chat.id}
+                          style={{ cursor: "pointer" }}
+                        >
+                          {chat.Fullname}
+                        </a>
+                      </li>
+                    );
+                  }
+                })}
+              </ul>
             </li>
             <li className="nav-item dropdown">
               <a
@@ -100,25 +149,30 @@ export default function Navbar() {
                 {user.Fullname}
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                {!isAdmin &&
+                {!isAdmin && (
                   <li>
                     <a className="dropdown-item" href="/profile">
                       Trang cá nhân
                     </a>
                   </li>
-                }
-                {isTeacher &&
+                )}
+                {isTeacher && (
                   <li>
-                    <div className="dropdown-item" href="/updateAdvert" onClick={updateAd} style={{cursor: 'pointer'}}>
+                    <div
+                      className="dropdown-item"
+                      href="/updateAdvert"
+                      onClick={updateAd}
+                      style={{ cursor: "pointer" }}
+                    >
                       Tin quảng bá
                     </div>
                   </li>
-                }
+                )}
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <button className="dropdown-item" onClick={onLogOut} >
+                  <button className="dropdown-item" onClick={onLogOut}>
                     Đăng xuất
                   </button>
                 </li>

@@ -1,3 +1,4 @@
+import { offset } from "@popperjs/core";
 import { API } from "../configs/API";
 
 export const NguoiDungService = {
@@ -67,6 +68,19 @@ export const NguoiDungService = {
       return;
     }
     return await fetch(API.USER.LIST + query, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      }
+    });
+  },
+
+  listUser1: async (jwt) => {
+    if (!jwt) {
+      return;
+    }
+    return await fetch(API.USER.LIST1, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${jwt}`,
