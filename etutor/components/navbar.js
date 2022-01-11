@@ -19,6 +19,9 @@ export default function Navbar() {
     setAction(Actions.LOG_OUT);
     router.replace('/login');
   }
+  const updateAd = () => {
+    router.replace('/updateAdvertise');
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -71,7 +74,7 @@ export default function Navbar() {
                 aria-label="Search"
                 onChange={(e) => setName(e.target.value)}
               />
-              <a className="btn btn-outline-success" href={`/searchTutor?name=${name}`}>
+              <a className="btn btn-outline-success" href={`/searchTutor?name=${name}`} >
                 <BsSearch/>
               </a>
             </form>
@@ -106,16 +109,16 @@ export default function Navbar() {
                 }
                 {isTeacher &&
                   <li>
-                    <a className="dropdown-item" href="#">
-                      Thông tin quảng bá
-                    </a>
+                    <div className="dropdown-item" href="/updateAdvert" onClick={updateAd} style={{cursor: 'pointer'}}>
+                      Tin quảng bá
+                    </div>
                   </li>
                 }
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <button className="dropdown-item" onClick={onLogOut}>
+                  <button className="dropdown-item" onClick={onLogOut} >
                     Đăng xuất
                   </button>
                 </li>

@@ -7,7 +7,7 @@ const Team = () => {
   return (
     <>
       {/* Team */}
-      <section className={`${styles[`page-section`]}`} id="team" style={{paddingTop: '0px'}}>
+      <section className={`${styles[`page-section`]}`} id="team">
         <div className={`${styles[`container`]}`}>
           <div className={`${styles[`text-center`]}`}>
             <h2

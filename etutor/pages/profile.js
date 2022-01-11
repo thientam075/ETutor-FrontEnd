@@ -101,15 +101,9 @@ function Profile() {
   const postAd = async () => {
     setIsLoading(true);
     const res = await TinQuangBaService.getAdByIdTeaher(jwt, user.id);
-    // console.log('res',res.json());
-    const resUser=await res.json();
-    if (res &&  resUser.rowCount!==0) {
+    
       router.replace('/updateAdvertise');   
-    } else {
-      router.replace('/postAdvertise');
-      // setContentToast("Đã xảy ra lỗi");
-      // setShowToast(true);
-    }
+  
     setIsLoading(false);
   };
 

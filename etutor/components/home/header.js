@@ -12,8 +12,9 @@ const Header = () => {
             className={`${styles[`masthead-heading`]} ${
               styles[`text-uppercase`]
             }`}
+          style={{lineHeight: 'normal'}}
           >
-            Sứ mệnh của chúng tôi là kết nối kiến thức
+            Sứ mệnh của chúng tôi là &quot;Kết nối kiến thức&quot;
           </div>
           <a
             className={`${styles[`btn`]} ${styles[`btn-primary`]} ${
@@ -21,7 +22,7 @@ const Header = () => {
             } ${styles[`text-uppercase`]}`}
             href="#services"
           >
-            Tham gia ngay
+            Tìm hiểu ngay
           </a>
         </div>
       </header> 
