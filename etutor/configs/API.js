@@ -9,7 +9,7 @@ export const API = {
     LIST: API_ROOT + "/users/?",
     LIST1: API_ROOT + "/users",
     UPDATE: (id) => API_ROOT + `/users/${id}`,
-    MANAGE_ACCESS: (id) => API_ROOT `/users/${id}`,
+    MANAGE_ACCESS: (id) => API_ROOT + `/users/${id}`,
     DETAIL: (id) => API_ROOT + `/users/${id}`,
   },
   REPORT: {
