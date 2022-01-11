@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Loader from "react-loader-spinner";
 import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
+import Footer from "../components/home/footer";
 import MyToast from "../components/myToast";
 import Navbar from "../components/navbar";
 import { useAppSelector } from "../context";
@@ -14,10 +15,7 @@ function UpdateAdvertise() {
   const [contentToast, setContentToast] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
-  const [subjects, setSubjects] = useState("");
-  const [cost, setCost] = useState("");
   const [time, setTime] = useState([]);
-  const [profile, setProfile] = useState("");
 
   const optionsArray = [
     { key: "2", label: "Thứ 2" },
@@ -47,27 +45,39 @@ function UpdateAdvertise() {
   const onSubmit = (data) => {
     fetchData(user.id, data);
   };
+  console.log("id", getValues("id"));
   const fetchData = async (teacherId, data) => {
-    const idAd=getValues("id");
-    console.log('id', idAd)
-    const res = await TinQuangBaService.updateAdvertise(idAd, data, jwt);
-    if (res && res.ok) {
-      handleShowToast("Cập nhật tin thành công");
+    const idAd = getValues("id");
+    if (idAd) {
+      const res = await TinQuangBaService.updateAdvertise(idAd, data, jwt);
+      if (res && res.ok) {
+        handleShowToast("Cập nhật tin thành công");
+      } else {
+        handleShowToast("Đã xảy ra lỗi");
+      }
     } else {
-      handleShowToast("Đã xảy ra lỗi");
+      const res = await TinQuangBaService.postAdvertise(teacherId, data, jwt);
+      if (res && res.ok) {
+        handleShowToast("Đăng tin thành công");
+      } else {
+        handleShowToast("Đã xảy ra lỗi");
+      }
     }
+    setIsLoaded(true);
   };
   const getAd = async () => {
     setIsLoading(true);
     const res = await TinQuangBaService.getAdvertise(user.id, jwt);
     const temp = await res.json();
-    const info = temp.rows[0];
-    setValue("id", info.id);
-    setValue("subject", info.subjects);
-    setValue("cost", info.cost);
-    setValue("profile", info.profile);
-    setValue("time", info.time);
-    setTime(info.time.split(","));
+    if (res && temp.rows[0]) {
+      const info = temp.rows[0];
+      setValue("id", info.id);
+      setValue("subject", info.subjects);
+      setValue("cost", info.cost);
+      setValue("profile", info.profile);
+      setValue("time", info.time);
+      setTime(info.time.split(","));
+    }
     setIsLoading(false);
     setIsLoaded(false);
   };
@@ -81,13 +91,15 @@ function UpdateAdvertise() {
     <>
       <Navbar />
       {isLoaded ? (
-        <Loader
-          type="ThreeDots"
-          color="#00BFFF"
-          height={75}
-          width={75}
-          timeout={0}
-        />
+        <div className="d-flex flex-column justify-content-center align-items-center h-100 pt-4">
+          <Loader
+            type="ThreeDots"
+            color="#00BFFF"
+            height={75}
+            width={75}
+            timeout={0}
+          />
+        </div>
       ) : (
         <>
           <MyToast
@@ -111,7 +123,11 @@ function UpdateAdvertise() {
                   <div className="card-body">
                     <div className="row">
                       <div className="d-flex justify-content-center">
-                        <h2>CẬP NHẬT THÔNG TIN QUẢNG BÁ</h2>
+                        {getValues("id") ? (
+                          <h2>CẬP NHẬT THÔNG TIN QUẢNG BÁ</h2>
+                        ) : (
+                          <h2>ĐĂNG THÔNG TIN QUẢNG BÁ</h2>
+                        )}
                       </div>
                     </div>
                     <div className="row">
@@ -131,7 +147,6 @@ function UpdateAdvertise() {
                                 placeholder="Môn học(vd: Toán, Lý...)"
                                 className="form-control here"
                                 type="text"
-                                defaultValue={subjects}
                                 {...register("subject", {
                                   required: "*Vui lòng nhập các môn học",
                                 })}
@@ -160,7 +175,6 @@ function UpdateAdvertise() {
                                 placeholder="Chi phí(vd:100)"
                                 className="form-control here"
                                 type="number"
-                                defaultValue={cost}
                                 {...register("cost", {
                                   required:
                                     "*Vui lòng nhập chi phí mỗi giờ học(vd: 100)",
@@ -231,7 +245,6 @@ function UpdateAdvertise() {
                                 cols="40"
                                 rows="4"
                                 className="form-control"
-                                defaultValue={profile}
                                 {...register("profile", {
                                   required: "*Vui lòng nhập thông tin quảng bá",
                                 })}
@@ -248,13 +261,24 @@ function UpdateAdvertise() {
                           )}
                           <div className="form-group row mt-5">
                             <div className="d-flex justify-content-center">
-                              <button
-                                type="submit"
-                                className="btn btn-primary"
-                                onSubmit={handleSubmit(onSubmit)}
-                              >
-                                Cập nhật thông tin quảng bá
-                              </button>
+                              {getValues("id") ? (
+                                <button
+                                  type="submit"
+                                  className="btn btn-primary"
+                                  onSubmit={handleSubmit(onSubmit)}
+                                  // style={{backgroundColor: 'yellow'}}
+                                >
+                                  Cập nhật thông tin quảng bá
+                                </button>
+                              ) : (
+                                <button
+                                  type="submit"
+                                  className="btn btn-primary"
+                                  onSubmit={handleSubmit(onSubmit)}
+                                >
+                                  Đăng thông tin quảng bá
+                                </button>
+                              )}
                             </div>
                           </div>
                         </form>
@@ -267,6 +291,7 @@ function UpdateAdvertise() {
           </div>
         </>
       )}
+      <Footer/>
     </>
   );
 }
