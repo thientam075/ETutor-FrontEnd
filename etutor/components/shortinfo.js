@@ -16,7 +16,7 @@ export default function ShortInfo({
           src={
             avatar
               ? avatar
-              : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+              : "https://res.cloudinary.com/dangthanh/image/upload/v1641804706/AvatarEtutor/user_ryrffo.png"
           }
           alt="Avatar"
           className="avatar"
