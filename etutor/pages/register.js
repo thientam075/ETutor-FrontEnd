@@ -1,16 +1,14 @@
+import { useRouter } from "next/router";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { BsFillLockFill, BsFillPersonFill, BsKeyFill } from "react-icons/bs";
+import { BsFillLockFill, BsFillPersonFill } from "react-icons/bs";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { IoMailSharp } from "react-icons/io5";
-import { API } from '../configs';
-import ImageRegister from "../public/images/signup_signin/signup.png";
-import { useContext, useState } from "react";
-import { AppContext } from "../context";
-import { Actions } from "../context/action";
-import { ToastHelper } from '../utils/Toast';
-import { useRouter } from "next/router";
 import Loader from "react-loader-spinner";
+import { AppContext } from "../context";
+import ImageRegister from "../public/images/signup_signin/signup.png";
 import { NguoiDungService } from "../serviceAPI/NguoiDungService";
+import { ToastHelper } from '../utils/Toast';
 
 export default function Register() {
   const {

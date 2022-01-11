@@ -35,27 +35,7 @@ const Team = () => {
                 />
                 <h4>Thiện Tâm</h4>
                 <p className={`${styles[`text-muted`]}`}>Developer</p>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-twitter`]}`}></i>
-                </a>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-facebook-f`]}`}></i>
-                </a>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-linkedin-in`]}`}></i>
-                </a>
+                
               </div>
             </div>
             <div className={`${styles[`col-lg-3`]}`}>
@@ -67,27 +47,7 @@ const Team = () => {
                 />
                 <h4>Minh Thành</h4>
                 <p className={`${styles[`text-muted`]}`}>Developer</p>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-twitter`]}`}></i>
-                </a>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-facebook-f`]}`}></i>
-                </a>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-linkedin-in`]}`}></i>
-                </a>
+                
               </div>
             </div>
             <div className={`${styles[`col-lg-3`]}`}>
@@ -99,27 +59,7 @@ const Team = () => {
                 />
                 <h4>Huy Thiện</h4>
                 <p className={`${styles[`text-muted`]}`}>Developer</p>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-twitter`]}`}></i>
-                </a>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-facebook-f`]}`}></i>
-                </a>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-linkedin-in`]}`}></i>
-                </a>
+                
               </div>
             </div>
             <div className={`${styles[`col-lg-3`]}`}>
@@ -131,27 +71,7 @@ const Team = () => {
                 />
                 <h4>Hữu Thịnh</h4>
                 <p className={`${styles[`text-muted`]}`}>Developer</p>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-twitter`]}`}></i>
-                </a>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-facebook-f`]}`}></i>
-                </a>
-                <a
-                  className={`${
-                    styles[`btn btn-dark btn-social mx-2" href="#!`]
-                  }`}
-                >
-                  <i className={`${styles[`fab fa-linkedin-in`]}`}></i>
-                </a>
+                
               </div>
             </div>
           </div>
