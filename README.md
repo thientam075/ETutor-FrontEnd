@@ -18,3 +18,4 @@ Cách chạy ứng dụng front-end: Sử dụng dòng lệnh trên cmd theo cá
 + Vào thư mục etutor: cd etutor
 + Cài đặt các package cần thiết: npm install
 + Chạy ứng dụng: npm run dev
++ Truy cập ứng dụng theo đường dẫn: http://localhost:3000/
